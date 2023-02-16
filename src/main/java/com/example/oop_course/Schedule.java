@@ -3,7 +3,7 @@ package com.example.oop_course;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Schedule {
+public final class Schedule {
     private List<List<Integer>> adjacencyMatrixOfPoints;
     private List<String> violations;
 

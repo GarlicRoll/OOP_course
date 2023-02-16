@@ -3,7 +3,7 @@ package com.example.oop_course;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Point extends Object {
+public final class Point extends Object {
     private int x;
     private int y;
     private String name;

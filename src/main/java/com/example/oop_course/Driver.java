@@ -2,7 +2,7 @@ package com.example.oop_course;
 
 import java.util.List;
 
-public class Driver extends Object {
+public final class Driver extends Object {
     private String name;
     private int age;
     private int experience;

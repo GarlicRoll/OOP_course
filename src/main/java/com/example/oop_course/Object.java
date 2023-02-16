@@ -1,6 +1,6 @@
 package com.example.oop_course;
 
-public class Object {
+public abstract class Object {
     int id;
     static int idCounter;
 

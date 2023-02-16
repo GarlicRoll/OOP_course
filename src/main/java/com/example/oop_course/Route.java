@@ -3,7 +3,7 @@ package com.example.oop_course;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Route extends Object {
+public final class Route extends Object {
     private List<Point> points;
     private List<Bus> buses;
     private int number;

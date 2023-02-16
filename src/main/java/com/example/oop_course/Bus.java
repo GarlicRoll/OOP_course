@@ -3,7 +3,7 @@ package com.example.oop_course;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bus extends Object {
+public final class Bus extends Object {
     private int number;
     private Driver driver;
     private static ArrayList<Bus> buses;
