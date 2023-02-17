@@ -10,4 +10,4 @@
 отдельных маршрутах;  
 3) Справка о графике движения автобусов и отчет о его нарушениях.   
 ## UML-диаграмма   
-![Transport (java)](https://user-images.githubusercontent.com/75137969/219373925-fc0fbb5c-00cb-4360-81dd-e590047ceb0b.png)
+![image](https://user-images.githubusercontent.com/75137969/219772616-bc1e9f82-685a-4063-9c2d-d724b3c4a678.png)
