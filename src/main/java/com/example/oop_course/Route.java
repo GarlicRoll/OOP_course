@@ -3,22 +3,31 @@ package com.example.oop_course;
 import java.util.List;
 
 /**
- * Финальный класс маршрута, наследуемый от объекта, с полями points, buses, number и start
+ * Финальный класс маршрута с полями buses, number, id, violations
  *
  * @author Пименов Глеб
  */
-public final class Route extends Object {
-    /** Поле остановки */
-    private List<Point> points;
-    /** Поле автобусы */
+public final class Route {
+    /**
+     * Поле id
+     */
+    private int id;
+    /**
+     * Поле автобусы
+     */
     private List<Bus> buses;
-    /** Поле номер маршрута */
+    /**
+     * Поле номер маршрута
+     */
     private int number;
-    /** Поле начало маршрута */
-    private int start;
+    /**
+     * Поле нарушения
+     */
+    private List<String> violations;
 
     /**
      * Функция получения значения поля {@link Route#number}
+     *
      * @return возвращает номер маршрута
      */
     public int getNumber() {
@@ -27,6 +36,7 @@ public final class Route extends Object {
 
     /**
      * Функция получения значения поля {@link Route#buses}
+     *
      * @return возвращает список автобусов на маршруте
      */
     public List<Bus> getBuses() {
@@ -34,18 +44,20 @@ public final class Route extends Object {
     }
 
     /**
-     * Функция получения значения поля {@link Route#points}
-     * @return возвращает список остановок
+     * Функция получения значения поля {@link Route#id}
+     *
+     * @return возвращает id
      */
-    public List<Point> getPoints() {
-        return points;
+    public int getId() {
+        return id;
     }
 
     /**
-     * Функция получения значения поля {@link Route#start}
-     * @return возвращает время начала маршрута
+     * Функция получения значения поля {@link Route#violations}
+     *
+     * @return возвращает нарушения
      */
-    public int getStart() {
-        return start;
+    public List<String> getViolations() {
+        return violations;
     }
 }

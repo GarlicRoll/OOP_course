@@ -1,11 +1,15 @@
 package com.example.oop_course;
 
 /**
- * Финальный класс водителя, наследуемый от объекта, с полями name, age, experience и category
+ * Финальный класс водителя с полями id, name, age, experience и category
  *
  * @author Пименов Глеб
  */
-public final class Driver extends Object {
+public final class Driver {
+    /**
+     * Поле id
+     */
+    private int id;
     /**
      * Поле имя водителя
      */
@@ -22,6 +26,15 @@ public final class Driver extends Object {
      * Поле категория водителя
      */
     private String category;
+
+    /**
+     * Функция получения значения поля {@link Driver#id}
+     *
+     * @return возвращает id
+     */
+    public int getId() {
+        return id;
+    }
 
     /**
      * Функция получения значения поля {@link Driver#name}
