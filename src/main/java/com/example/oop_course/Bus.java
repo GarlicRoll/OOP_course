@@ -83,22 +83,37 @@ public final class Bus {
         return driver;
     }
 
+    /**
+     * Функция установки значения поля {@link Bus#id}
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Функция установки значения поля {@link Bus#number}
+     */
     public void setNumber(int number) {
         this.number = number;
     }
 
+    /**
+     * Функция установки значения поля {@link Bus#driver}
+     */
     public void setDriver(int driver) {
         this.driver = driver;
     }
 
+    /**
+     * Функция установки значения поля {@link Bus#end}
+     */
     public void setEnd(int end) {
         this.end = end;
     }
 
+    /**
+     * Функция установки значения поля {@link Bus#start}
+     */
     public void setStart(int start) {
         this.start = start;
     }

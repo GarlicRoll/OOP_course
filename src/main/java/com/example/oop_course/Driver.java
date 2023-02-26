@@ -83,22 +83,37 @@ public final class Driver {
         return category;
     }
 
+    /**
+     * Функция установки значения поля {@link Driver#id}
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Функция установки значения поля {@link Driver#name}
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Функция установки значения поля {@link Driver#category}
+     */
     public void setCategory(String category) {
         this.category = category;
     }
 
+    /**
+     * Функция установки значения поля {@link Driver#experience}
+     */
     public void setExperience(int experience) {
         this.experience = experience;
     }
 
+    /**
+     * Функция установки значения поля {@link Driver#age}
+     */
     public void setAge(int age) {
         this.age = age;
     }

@@ -79,10 +79,17 @@ public final class Route {
         return violations;
     }
     */
+
+    /**
+     * Функция установки значения поля {@link Route#id}
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Функция установки значения поля {@link Route#number}
+     */
     public void setNumber(int number) {
         this.number = number;
     }
