@@ -1,10 +1,14 @@
 package com.example.oop_course;
 
+import javax.persistence.*;
+
 /**
  * Финальный класс водителя с полями id, name, age, experience и category
  *
  * @author Пименов Глеб
  */
+@Entity
+@Table(name = "test.drivers")
 public final class Driver {
     /**
      * Поле id
@@ -32,6 +36,9 @@ public final class Driver {
      *
      * @return возвращает id
      */
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -41,6 +48,7 @@ public final class Driver {
      *
      * @return возвращает имя водителя
      */
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -50,6 +58,7 @@ public final class Driver {
      *
      * @return возвращает возраст водителя
      */
+    @Column(name = "age")
     public int getAge() {
         return age;
     }
@@ -59,6 +68,7 @@ public final class Driver {
      *
      * @return возвращает опыт водителя автобуса
      */
+    @Column(name = "experience")
     public int getExperience() {
         return experience;
     }
@@ -68,7 +78,28 @@ public final class Driver {
      *
      * @return возвращает категорию водителя автобуса
      */
+    @Column(name = "category")
     public String getCategory() {
         return category;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }

@@ -1,10 +1,14 @@
 package com.example.oop_course;
 
+import javax.persistence.*;
+
 /**
  * Финальный класс автобуса с полями id, number, start, end и driver
  *
  * @author Пименов Глеб
  */
+@Entity
+@Table(name = "test.buses")
 public final class Bus {
     /**
      * Поле id
@@ -25,13 +29,16 @@ public final class Bus {
     /**
      * Поле водителя автобуса
      */
-    private Driver driver;
+    private int driver;
 
     /**
      * Функция получения значения поля {@link Bus#id}
      *
      * @return возвращает id
      */
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -41,6 +48,7 @@ public final class Bus {
      *
      * @return возвращает номер автобуса
      */
+    @Column(name = "number")
     public int getNumber() {
         return number;
     }
@@ -50,6 +58,7 @@ public final class Bus {
      *
      * @return возвращает время начала работы автобуса
      */
+    @Column(name = "start")
     public int getStart() {
         return start;
     }
@@ -59,6 +68,7 @@ public final class Bus {
      *
      * @return возвращает время окончания работы автобуса
      */
+    @Column(name = "end")
     public int getEnd() {
         return end;
     }
@@ -68,7 +78,29 @@ public final class Bus {
      *
      * @return возвращает водителя автобуса
      */
-    public Driver getDriver() {
+    @Column(name = "driver")
+    public int getDriver() {
         return driver;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void setDriver(int driver) {
+        this.driver = driver;
+    }
+
+    public void setEnd(int end) {
+        this.end = end;
+    }
+
+    public void setStart(int start) {
+        this.start = start;
+    }
+
 }
