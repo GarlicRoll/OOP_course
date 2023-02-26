@@ -19,10 +19,8 @@ public final class Route {
     /**
      * Поле автобусы
      */
-    /*
     private int buses;
 
-     */
     /**
      * Поле номер маршрута
      */
@@ -30,9 +28,7 @@ public final class Route {
     /**
      * Поле нарушения
      */
-    /*
     private String violations;
-    */
 
     /**
      * Функция получения значения поля {@link Route#number}
@@ -49,12 +45,9 @@ public final class Route {
      *
      * @return возвращает список автобусов на маршруте
      */
-    /*
-    @Column(name = "buses")
     public int getBuses() {
         return buses;
     }
-     */
 
     /**
      * Функция получения значения поля {@link Route#id}
@@ -73,12 +66,9 @@ public final class Route {
      *
      * @return возвращает нарушения
      */
-    /*
-    @Column(name = "violations")
     public String getViolations() {
         return violations;
     }
-    */
 
     /**
      * Функция установки значения поля {@link Route#id}
@@ -93,15 +83,18 @@ public final class Route {
     public void setNumber(int number) {
         this.number = number;
     }
-    /*
+
+    /**
+     * Функция установки значения поля {@link Route#violations}
+     */
     public void setViolations(String violations) {
         this.violations = violations;
     }
-    */
-    /*
+
+    /**
+     * Функция установки значения поля {@link Route#buses}
+     */
     public void setBuses(int buses) {
         this.buses = buses;
     }
-
-     */
 }
