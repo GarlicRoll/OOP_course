@@ -29,7 +29,7 @@ public final class Bus {
     /**
      * Поле водителя автобуса
      */
-    private int driver;
+    private Driver driver;
 
     /**
      * Функция получения значения поля {@link Bus#id}
@@ -78,8 +78,10 @@ public final class Bus {
      *
      * @return возвращает водителя автобуса
      */
-    @Column(name = "driver")
-    public int getDriver() {
+    //@Column(name = "driver")
+    @ManyToOne
+    @JoinColumn(name = "driver")
+    public Driver getDriver() {
         return driver;
     }
 
@@ -100,7 +102,7 @@ public final class Bus {
     /**
      * Функция установки значения поля {@link Bus#driver}
      */
-    public void setDriver(int driver) {
+    public void setDriver(Driver driver) {
         this.driver = driver;
     }
 

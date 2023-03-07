@@ -19,7 +19,7 @@ public final class Route {
     /**
      * Поле автобусы
      */
-    private int buses;
+    private List<Bus> buses;
 
     /**
      * Поле номер маршрута
@@ -45,7 +45,11 @@ public final class Route {
      *
      * @return возвращает список автобусов на маршруте
      */
-    public int getBuses() {
+    @OneToMany
+    @JoinTable(name = "routebuses",
+            joinColumns = @JoinColumn(name = "routeId", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "busId", referencedColumnName = "id"))
+    public List<Bus> getBuses() {
         return buses;
     }
 
@@ -65,6 +69,11 @@ public final class Route {
      * Функция получения значения поля {@link Route#violations}
      *
      * @return возвращает нарушения
+     */
+    /*
+    @OneToMany
+    @JoinTable(name = "routeviolations",
+            joinColumns = @JoinColumn(name = "routeId", referencedColumnName = "id"))
      */
     public String getViolations() {
         return violations;
@@ -94,7 +103,7 @@ public final class Route {
     /**
      * Функция установки значения поля {@link Route#buses}
      */
-    public void setBuses(int buses) {
+    public void setBuses(List<Bus> buses) {
         this.buses = buses;
     }
 }
