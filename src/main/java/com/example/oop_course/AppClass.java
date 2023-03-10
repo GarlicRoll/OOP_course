@@ -1,7 +1,10 @@
 package com.example.oop_course;
 
+import com.example.oop_course.model.Driver;
+
 import javax.persistence.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +15,7 @@ public class AppClass {
     public static EntityManager em;
     public static class CommandButtons extends JFrame {
         public CommandButtons() {
-            super("CommandButtons");
+            super("Наземный транспорт");
             setSize(960, 540);
             setLocation(150, 100); // левый верхний угол окна
             setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -23,10 +26,17 @@ public class AppClass {
             JButton button2 = new JButton("Автобусы");
             JButton button3 = new JButton("График");
 
+            model = new DefaultTableModel();
+            model.addColumn("Id");
+            model.addColumn("Name");
+            model.addColumn("Age");
+            model.addColumn("Experience");
+            model.addColumn("Category");
+            JTable table = new JTable(model);
+
             grid.add(button1);
             grid.add(button2);
             grid.add(button3);
-
 
 // помещаем полученное в панель с последовательным расположением, выровненным по правому краю
             JPanel flow = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -35,14 +45,16 @@ public class AppClass {
             Container c = getContentPane();
 // помещаем строку кнопок вниз окна
             c.add(flow, BorderLayout.NORTH);
-            info = new JTextArea("Пока событий не было\n"); // многострочное поле для вывода сообщений
-            c.add(new JScrollPane(info));
-
+            //info = new JTextArea("Пока событий не было\n"); // многострочное поле для вывода сообщений
+            //c.add(new JScrollPane(info));
+            c.add(table);
             button1.addActionListener(new ActionL());
 // выводим окно на экран
             setVisible(true);
         }
         JTextArea info;
+        //JTable table;
+        DefaultTableModel model;
 
         class ActionL implements ActionListener { // обработчик кнопки
             public void actionPerformed(ActionEvent e) {
@@ -67,7 +79,10 @@ public class AppClass {
                             "\nExperience: " + experience +
                             "\nCategory " + category +
                             "\n<**********>";
-                    info.append(result);
+                    Driver dr2 = em.find(Driver.class, 2);
+                    //info.append(result);
+                    System.out.println(dr2.getName());
+                    model.addRow(new Object[]{Integer.toString(id), name, Integer.toString(age), Integer.toString(experience), category});
                 }
             }
         }
@@ -82,9 +97,13 @@ public class AppClass {
         // Механизм сохранения целостности данных
         em.getTransaction().begin();
 
-        Driver dr = (Driver) em.find(Driver.class, 1);
+        //Driver dr = new Driver();
+        //dr.setAge(34);
+        //dr.setName("Daniil");
+        //dr.setCategory("D");
+        //dr.setExperience(3);
         // Привязка к бд
-        em.persist(dr);
+        //em.persist(dr);
         // Сохранение в бд
         em.getTransaction().commit();
 

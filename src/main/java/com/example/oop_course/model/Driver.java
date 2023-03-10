@@ -1,4 +1,4 @@
-package com.example.oop_course;
+package com.example.oop_course.model;
 
 import javax.persistence.*;
 
@@ -31,6 +31,15 @@ public final class Driver {
      */
     private String category;
 
+    Driver() {
+
+    }
+
+    public Driver(String name, String category) {
+        this.name = name;
+        this.category = category;
+    }
+
     /**
      * Функция получения значения поля {@link Driver#id}
      *
@@ -50,6 +59,7 @@ public final class Driver {
      */
     @Column(name = "name")
     public String getName() {
+        System.out.println(name);
         return name;
     }
 

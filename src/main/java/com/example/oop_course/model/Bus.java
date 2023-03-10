@@ -1,4 +1,4 @@
-package com.example.oop_course;
+package com.example.oop_course.model;
 
 import javax.persistence.*;
 
