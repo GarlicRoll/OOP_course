@@ -6,6 +6,7 @@ import  org.example.exceptions.NotFoundException;
 import org.example.model.Bus;
 import org.example.model.Driver;
 import  org.example.model.Route;
+import org.example.model.Violation;
 import org.example.service.BusService;
 import org.example.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,6 +148,40 @@ public class RouteController {
         }
 
         return new ResponseEntity<>(route, HttpStatus.valueOf(code));
+    }
+
+    /***
+     * Добавление нарушения на маршрут
+     * @param id Уникальный номер маршрута, которого обновляют
+     * @param violation Объект Violation (Новое нарушение)
+     * @return Обновлённый маршрут и HTTP код
+     */
+    @PatchMapping("addViolationTo/{id}")
+    public ResponseEntity<Route> addViolation(@PathVariable int id, @RequestBody Violation violation) {
+        Route route = null;
+        Optional<Route> routeOptional = routeService.findRouteById(id);
+        if (routeOptional.isPresent()) {
+            route = routeOptional.get();
+            List<Violation> violations = route.getViolations();
+            violations.add(violation);
+            route.setViolations(violations);
+            route = routeService.updateRoute(route);
+        }
+
+        return new ResponseEntity<>(route, HttpStatus.valueOf(201));
+    }
+
+    @PatchMapping("removeViolationsFrom/{id}")
+    public ResponseEntity<Route> removeViolations(@PathVariable int id) {
+        Route route = null;
+        Optional<Route> routeOptional = routeService.findRouteById(id);
+        if (routeOptional.isPresent()) {
+            route = routeOptional.get();
+            route.setViolations(null);
+            route = routeService.updateRoute(route);
+        }
+
+        return new ResponseEntity<>(route, HttpStatus.valueOf(201));
     }
 
     /***

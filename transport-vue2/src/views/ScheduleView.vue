@@ -58,14 +58,14 @@
         ></b-form-input>
 
         <b-form-input
-            v-model="violationId"
+            v-model="violation"
             id="inline-form-input-name"
             class="mb-2 mr-sm-2 mb-sm-0"
             placeholder="Нарушение"
         ></b-form-input>
 
-        <b-button variant="primary" @click="addRoute">Добавить</b-button>
-        <b-button variant="primary" @click="deleteRoute">Удалить</b-button>
+        <b-button variant="primary" @click="addViolation">Добавить</b-button>
+        <b-button variant="primary" @click="removeViolation">Удалить</b-button>
       </b-form>
 
   </div>
@@ -87,7 +87,7 @@ export default {
       buses : null,
       violations : '',
       busId : null,
-      violationId : '',
+      violation : '',
       dismissSecs: 3,
       dismissCountDown: 0,
       showDismissibleAlert: false,
@@ -214,7 +214,25 @@ export default {
           }).catch(e => {
         console.log(e)
       })
+    },
+    //TODO Сделать красивое отображение нарушений и зависимых комнонентов
+    //TODO Сделать кнопки как ячейку у каждой строчки
+    //TODO Добавить реализацию методов для нарушений
+    addViolation() {
+      this.$http.patch(url + "/route/addViolationTo/" + this.id3.toString(),
+          {
+            violation: this.violation,
+          }
+      ).catch((e) => {
+        console.log(e.toString())
+        this.alertText = "Ошибка!"
+      }).then(() => this.getData())
+    },
+
+    removeViolation() {
+
     }
+
   }
 }
 </script>
