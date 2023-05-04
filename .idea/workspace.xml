@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1d545a4-aebc-4c27-85fd-64878785bee5" name="Changes" comment="Добавлены связи между таблицами рабочие + немного улучшен визуал">
+    <list default="true" id="e1d545a4-aebc-4c27-85fd-64878785bee5" name="Changes" comment="Попытка реализации нарушений (violations)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/RouteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/RouteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/ScheduleView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/ScheduleView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/DriversView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/DriversView.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +50,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Programming/OOP_course",
+    "last_opened_file_path": "D:/Programming/OOP_course_v2",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -208,7 +207,8 @@
       <workItem from="1682341017365" duration="2706000" />
       <workItem from="1683035908877" duration="1339000" />
       <workItem from="1683041750305" duration="2196000" />
-      <workItem from="1683134328578" duration="22821000" />
+      <workItem from="1683134328578" duration="23245000" />
+      <workItem from="1683237049507" duration="5897000" />
     </task>
     <task id="LOCAL-00001" summary="Добавлены связи между таблицами рабочие + немного улучшен визуал">
       <created>1683155302311</created>
@@ -217,7 +217,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683155302311</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Попытка реализации нарушений (violations)">
+      <created>1683157943615</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1683157943615</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -236,6 +243,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Добавлены связи между таблицами рабочие + немного улучшен визуал" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлены связи между таблицами рабочие + немного улучшен визуал" />
+    <MESSAGE value="Попытка реализации нарушений (violations)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Попытка реализации нарушений (violations)" />
   </component>
 </project>

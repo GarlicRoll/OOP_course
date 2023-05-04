@@ -5,9 +5,42 @@
     <vue-good-table
         :columns="columns"
         :rows="drivers"
-        class="table"></vue-good-table>
+        class="table">
+
+      <template slot="table-row" slot-scope="props">
+                  <span v-if="props.column.field == 'before'">
+                    <b-button variant="primary" @click="show(props.row.id)">Изменить</b-button>
+                    <b-button variant="primary" @click="deleteDriver(props.row.id)">Удалить</b-button>
+                  </span>
+                  <span v-else>
+                      {{props.formattedRow[props.column.field]}}
+                  </span>
+      </template>
+
+    </vue-good-table>
       </form>
-    <b-form inline class="layouts">
+
+
+    <!-- Styled -->
+    <form class="layouts">
+      <b-button variant="primary" @click="showForAdd">Добавить</b-button>
+      <p></p>
+    <b-form-file
+        accept=".json"
+        v-model="file"
+        :state="Boolean(file)"
+        drop-placeholder="Drop file here..."
+        placeholder="Выберите файл или перетащите сюда..."
+        browse-text="Выбрать"
+    ></b-form-file>
+      <p></p>
+
+    <b-button pill variant="secondary" @click="addJSON">Звгрузить файл в формате .JSON</b-button>
+      <b-button pill variant="secondary" @click="getJSON">Выгрузить в формате .JSON</b-button>
+      <b-button pill variant="secondary" @click="generatePDF">Выгрузить в формате .PDF</b-button>
+    </form>
+
+    <b-form inline class="layouts" id="form">
       <label class="sr-only" for="inline-form-input-name">Name</label>
 
       <b-form-input
@@ -44,29 +77,14 @@
           class="mb-2 mr-sm-2 mb-sm-0"
           placeholder="Категория"
       ></b-form-input>
+      <b-button variant="primary" id="formUpdate" @click="updateDriver">Сохранить</b-button>
 
-      <b-button variant="primary" @click="addDriver">Добавить</b-button>
-      <b-button variant="primary" @click="updateDriver">Обновить</b-button>
-      <b-button variant="primary" @click="deleteDriver">Удалить</b-button>
-      <b-button pill variant="secondary" @click="getJSON">Выгрузить в формате .JSON</b-button>
-      <b-button pill variant="secondary" @click="generatePDF">Выгрузить в формате .PDF</b-button>
+      <b-button variant="primary" id="formAdd" @click="addDriver">Сохранить</b-button>
+
+        <b-button pill variant="danger" @click="clean">Закрыть</b-button>
     </b-form>
 
-    <!-- Styled -->
-    <p></p>
-    <form class="layouts">
-    <b-form-file
-        accept=".json"
-        v-model="file"
-        :state="Boolean(file)"
-        drop-placeholder="Drop file here..."
-        placeholder="Выберите файл или перетащите сюда..."
-        browse-text="Выбрать"
-    ></b-form-file>
-      <p></p>
-    <b-button pill variant="secondary" @click="addJSON">Звгрузить файл в формате .JSON</b-button>
-    </form>
-    <b-alert
+    <b-alert class="layouts"
         :show="dismissCountDown"
         dismissible
         variant="success"
@@ -130,6 +148,11 @@ export default {
           label: 'Категория',
           field: 'category',
         },
+        {
+          label: 'Действия',
+          field: 'before',
+          sortable: false
+        },
       ],
       drivers: [],
 
@@ -182,8 +205,8 @@ export default {
         this.alertText = "Ошибка!"
       }).then(() => this.getData())
     },
-    deleteData() {
-      this.$http.delete(url + "/driver/" + this.id.toString()).catch((e) => {
+    deleteData(id) {
+      this.$http.delete(url + "/driver/" + id.toString()).catch((e) => {
         if (e.response.status === 404) {
           this.alertText = "Не найдено!"
           console.log("Error 404. Driver not found. WebApp. " + e.toString())
@@ -202,14 +225,16 @@ export default {
     },
     addDriver() {
       this.createData()
+      this.clean()
       this.showAlert("Добавлено!")
     },
-    deleteDriver() {
-      this.deleteData()
+    deleteDriver(id) {
+      this.deleteData(id)
       this.showAlert("Удалено!")
     },
     updateDriver() {
       this.updateData()
+      this.clean()
       this.showAlert("Обновлено!")
     },
     getJSON() {
@@ -247,7 +272,44 @@ export default {
       pdf.text(text, 10, 10)
       pdf.save("drivers.pdf")
       this.showAlert("Скачано!")
-    }
+    },
+    getIndex(list, id) {
+      for (let i = 0; i < list.length; i++ ) {
+        if (list[i].id === id) {
+          return i;
+        }
+      }
+    },
+    show(id) {
+      const index = this.getIndex(this.drivers, id);
+      document.getElementById("form").style.display = "block"
+      document.getElementById("formAdd").style.display = "none"
+      document.getElementById("formUpdate").style.display = "inline-block"
+      this.name = this.drivers[index].name;
+      this.id = this.drivers[index].id;
+      this.age= this.drivers[index].age;
+      this.category = this.drivers[index].category;
+      this.experience= this.drivers[index].experience;
+    },
+    showForAdd() {
+      this.id = null;
+      this.name = '';
+      this.age= null;
+      this.category = '';
+      this.experience= null;
+      document.getElementById("form").style.display = "block"
+      document.getElementById("formUpdate").style.display = "none"
+      document.getElementById("formAdd").style.display = "inline-block"
+    },
+    clean() {
+      document.getElementById("form").style.display = "none";
+      this.id = null;
+      this.name = '';
+      this.age= null;
+      this.category = '';
+      this.experience= null;
+    },
+    //TODO пофиксить обновление страницы при сортировке таблицы
   },
 };
 </script>
@@ -261,5 +323,19 @@ export default {
   background-image: url('\\img\\driver2.jpg');
   height: 100vh;
 }
+
+#form {
+  display: none;
+}
+
+#formUpdate {
+  display: none;
+}
+
+#formAdd {
+  display: none;
+}
+
+
 
 </style>
