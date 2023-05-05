@@ -1,12 +1,12 @@
 <template>
   <div class="background">
     <main-layout></main-layout>
-    <form class="layouts">
+    <div class="layouts">
     <vue-good-table
         :columns="columns"
         :rows="buses"
         class="table"></vue-good-table>
-    </form>
+    </div>
     <b-form inline class="layouts">
       <label class="sr-only" for="inline-form-input-name">Name</label>
 

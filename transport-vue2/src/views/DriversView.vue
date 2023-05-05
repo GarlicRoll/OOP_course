@@ -1,7 +1,7 @@
 <template>
   <div class = "background">
     <main-layout></main-layout>
-    <form class="layouts">
+    <div class="layouts">
     <vue-good-table
         :columns="columns"
         :rows="drivers"
@@ -9,8 +9,8 @@
 
       <template slot="table-row" slot-scope="props">
                   <span v-if="props.column.field == 'before'">
-                    <b-button variant="primary" @click="show(props.row.id)">Изменить</b-button>
-                    <b-button variant="primary" @click="deleteDriver(props.row.id)">Удалить</b-button>
+                    <b-button squared variant="primary" @click="show(props.row.id)">Изменить</b-button>
+                    <b-button squared variant="danger" @click="deleteDriver(props.row.id)">Удалить</b-button>
                   </span>
                   <span v-else>
                       {{props.formattedRow[props.column.field]}}
@@ -18,14 +18,15 @@
       </template>
 
     </vue-good-table>
-      </form>
+      </div>
 
 
     <!-- Styled -->
-    <form class="layouts">
+    <div class="layouts">
       <b-button variant="primary" @click="showForAdd">Добавить</b-button>
       <p></p>
     <b-form-file
+        class="formFile"
         accept=".json"
         v-model="file"
         :state="Boolean(file)"
@@ -38,12 +39,12 @@
     <b-button pill variant="secondary" @click="addJSON">Звгрузить файл в формате .JSON</b-button>
       <b-button pill variant="secondary" @click="getJSON">Выгрузить в формате .JSON</b-button>
       <b-button pill variant="secondary" @click="generatePDF">Выгрузить в формате .PDF</b-button>
-    </form>
+    </div>
 
     <b-form inline class="layouts" id="form">
       <label class="sr-only" for="inline-form-input-name">Name</label>
 
-      <b-form-input
+      <b-form-input readonly
           v-model="id"
           id="inline-form-input-name"
           class="mb-2 mr-sm-2 mb-sm-0"
@@ -309,7 +310,6 @@ export default {
       this.category = '';
       this.experience= null;
     },
-    //TODO пофиксить обновление страницы при сортировке таблицы
   },
 };
 </script>
@@ -335,7 +335,9 @@ export default {
 #formAdd {
   display: none;
 }
-
+.formFile {
+  width: 75vh;
+}
 
 
 </style>
