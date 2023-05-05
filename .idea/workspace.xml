@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1d545a4-aebc-4c27-85fd-64878785bee5" name="Changes" comment="Окно водителей. Кнопки внутри таблицы.">
+    <list default="true" id="e1d545a4-aebc-4c27-85fd-64878785bee5" name="Changes" comment="Поправлена сортировка, окно id недоступно для изменений">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/BusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/BusController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/BusesView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/BusesView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/DriversView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/DriversView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/ScheduleView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/ScheduleView.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,7 +211,7 @@
       <workItem from="1683041750305" duration="2196000" />
       <workItem from="1683134328578" duration="23245000" />
       <workItem from="1683237049507" duration="6190000" />
-      <workItem from="1683295480966" duration="1163000" />
+      <workItem from="1683295480966" duration="5787000" />
     </task>
     <task id="LOCAL-00001" summary="Добавлены связи между таблицами рабочие + немного улучшен визуал">
       <created>1683155302311</created>
@@ -234,7 +234,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683243149181</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Поправлена сортировка, окно id недоступно для изменений">
+      <created>1683296767722</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1683296767722</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,6 +262,7 @@
     <MESSAGE value="Добавлены связи между таблицами рабочие + немного улучшен визуал" />
     <MESSAGE value="Попытка реализации нарушений (violations)" />
     <MESSAGE value="Окно водителей. Кнопки внутри таблицы." />
-    <option name="LAST_COMMIT_MESSAGE" value="Окно водителей. Кнопки внутри таблицы." />
+    <MESSAGE value="Поправлена сортировка, окно id недоступно для изменений" />
+    <option name="LAST_COMMIT_MESSAGE" value="Поправлена сортировка, окно id недоступно для изменений" />
   </component>
 </project>

@@ -71,7 +71,7 @@ public class BusController {
     public ResponseEntity<Bus> create(@RequestBody Bus bus) {
 
         busService.saveBus(bus);
-
+        //TODO убрать возможность добавлять одного водителя на разные автобусы (или сделать manytomany)
         Main.logger.log(Level.INFO, "201 OK Server. Post one bus. " + bus);
 
         return new ResponseEntity<>(bus, HttpStatus.valueOf(201));

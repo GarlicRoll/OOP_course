@@ -1,6 +1,7 @@
 <template>
   <div class = "background">
     <main-layout></main-layout>
+
     <div class="layouts">
     <vue-good-table
         :columns="columns"

@@ -2,19 +2,52 @@
   <div class="background">
     <main-layout></main-layout>
     <div class="layouts">
-    <vue-good-table
-        :columns="columns"
-        :rows="buses"
-        class="table"></vue-good-table>
+      <vue-good-table
+          :columns="columns"
+          :rows="buses"
+          class="table">
+
+        <template slot="table-row" slot-scope="props">
+                  <span v-if="props.column.field == 'before'">
+                    <b-button squared variant="primary" @click="show(props.row.id)">Изменить</b-button>
+                    <b-button squared variant="danger" @click="deleteBus(props.row.id)">Удалить</b-button>
+                  </span>
+          <span v-else>
+                      {{ props.formattedRow[props.column.field] }}
+                  </span>
+        </template>
+
+      </vue-good-table>
     </div>
-    <b-form inline class="layouts">
+
+    <!-- Styled -->
+    <div class="layouts">
+      <b-button variant="primary" @click="showForAdd">Добавить</b-button>
+      <p></p>
+      <b-form-file
+          class="formFile"
+          accept=".json"
+          v-model="file"
+          :state="Boolean(file)"
+          drop-placeholder="Drop file here..."
+          placeholder="Выберите файл или перетащите сюда..."
+          browse-text="Выбрать"
+      ></b-form-file>
+      <p></p>
+
+      <b-button pill variant="secondary" @click="addJSON">Звгрузить файл в формате .JSON</b-button>
+      <b-button pill variant="secondary" @click="getJSON">Выгрузить в формате .JSON</b-button>
+      <b-button pill variant="secondary" @click="generatePDF">Выгрузить в формате .PDF</b-button>
+    </div>
+
+    <b-form inline class="layouts" id="form">
       <label class="sr-only" for="inline-form-input-name">Name</label>
 
-      <b-form-input
-          v-model="id"
-          id="inline-form-input-name"
-          class="mb-2 mr-sm-2 mb-sm-0"
-          placeholder="Номер"
+      <b-form-input readonly
+                    v-model="id"
+                    id="inline-form-input-name"
+                    class="mb-2 mr-sm-2 mb-sm-0"
+                    placeholder="Номер"
       ></b-form-input>
 
       <b-form-input
@@ -45,26 +78,14 @@
           placeholder="Водитель"
       ></b-form-input>
 
-      <b-button variant="primary" @click="addBus">Добавить</b-button>
-      <b-button variant="primary" @click="updateBus">Обновить</b-button>
-      <b-button variant="primary" @click="deleteBus">Удалить</b-button>
-      <b-button pill variant="secondary" @click="getJSON">Выгрузить в формате .JSON</b-button>
+      <b-button variant="primary" id="formUpdate" @click="updateBus">Сохранить</b-button>
+
+      <b-button variant="primary" id="formAdd" @click="addBus">Сохранить</b-button>
+
+      <b-button pill variant="danger" @click="clean">Закрыть</b-button>
     </b-form>
 
-    <!-- Styled -->
-    <p></p>
-    <form class="layouts">
-    <b-form-file
-        accept=".json"
-        v-model="file"
-        :state="Boolean(file)"
-        placeholder="Выберите файл или перетащите сюда..."
-        browse-text="Выбрать"
-        drop-placeholder="Drop file here..."
-    ></b-form-file>
-      <p></p>
-    <b-button pill variant="secondary" @click="addJSON">Звгрузить файл в формате .JSON</b-button>
-    </form>
+
     <b-alert
         :show="dismissCountDown"
         dismissible
@@ -89,6 +110,8 @@
 
 import MainLayout from "@/layouts/MainLayout.vue";
 import {url} from "@/main";
+import jsPDF from "jspdf";
+import font from "@/Comic Sans MS-normal";
 
 export default {
   name: 'BusesView',
@@ -130,6 +153,11 @@ export default {
           field: 'driver.id',
           type: 'number',
         },
+        {
+          label: 'Действия',
+          field: 'before',
+          sortable: false,
+        }
       ],
       buses: [],
     }
@@ -157,11 +185,11 @@ export default {
       })
     },
     createData() {
-      console.log("Driver: " + this.driverId)
+      if (this.driverId != null && this.driverId !== '') {
       this.$http.get(url + "/driver/" + this.driverId)
           .then(response => {
-            const driver = response && response.data ? response.data : []
-            //localStorage.setItem('drivers', JSON.stringify(drivers))
+                const driver = response && response.data ? response.data : []
+                //localStorage.setItem('drivers', JSON.stringify(drivers))
                 console.log("Driver: " + this.driver)
                 this.$http.post(url + "/bus", {
                   number: this.number,
@@ -171,11 +199,13 @@ export default {
                 }).catch(() => {
                   this.alertText = "Ошибка!"
                 }).then(() => this.getData())
-          }
-
+              }
           ).catch(e => {
         console.log(e)
+      }).then(() => {
 
+      })
+      } else {
         this.$http.post(url + "/bus", {
           number: this.number,
           start: this.start,
@@ -183,42 +213,40 @@ export default {
         }).catch(() => {
           this.alertText = "Ошибка!"
         }).then(() => this.getData())
+      }
 
-      }).then(() => {
-
-      })
     },
     updateData() {
+      if (this.driverId != null && this.driverId !== '') {
+        this.$http.get(url + "/driver/" + this.driverId)
+            .then(response => {
+                  const driver = response && response.data ? response.data : []
+                  //localStorage.setItem('drivers', JSON.stringify(drivers))
+                  console.log("Driver: " + this.driver)
+                  this.$http.patch(url + "/bus/" + this.id.toString(), {
+                    number: this.number,
+                    start: this.start,
+                    end: this.end,
+                    driver: driver,
+                  }).catch(() => {
+                    this.alertText = "Ошибка!"
+                  }).then(() => this.clean()).then(() => this.getData())
+                }
+            ).catch(e => {
+          console.log(e)
+        }).then(() => {
 
-      this.$http.get(url + "/driver/" + this.driverId)
-          .then(response => {
-                const driver = response && response.data ? response.data : []
-                //localStorage.setItem('drivers', JSON.stringify(drivers))
-                console.log("Driver: " + this.driver)
-            this.$http.patch(url + "/bus/" + this.id.toString(), {
-                  number: this.number,
-                  start: this.start,
-                  end: this.end,
-                  driver: driver,
-                }).catch(() => {
-                  this.alertText = "Ошибка!"
-                }).then(() => this.getData())
-              }
-
-          ).catch(e => {
-        console.log(e)
-
+        })
+      } else {
         this.$http.patch(url + "/bus/" + this.id.toString(), {
           number: this.number,
           start: this.start,
           end: this.end,
         }).catch(() => {
           this.alertText = "Ошибка!"
-        }).then(() => this.getData())
+        }).then(() => this.clean()).then(() => this.getData())
+      }
 
-      }).then(() => {
-
-      })
       /*
       this.$http.patch(url + "/bus/" + this.id.toString(), {
             id: this.id,
@@ -234,8 +262,8 @@ export default {
       */
 
     },
-    deleteData() {
-      this.$http.delete(url + "/bus/" + this.id.toString()).catch((e) => {
+    deleteData(id) {
+      this.$http.delete(url + "/bus/" + id.toString()).catch((e) => {
         console.log(e.toString())
         this.alertText = "Ошибка!"
       }).then(() => this.getData())
@@ -249,6 +277,7 @@ export default {
     },
     addBus() {
       this.createData()
+      this.clean()
       this.showAlert("Добавлено!")
 
     },
@@ -256,8 +285,8 @@ export default {
       this.updateData()
       this.showAlert("Обновлено!")
     },
-    deleteBus() {
-      this.deleteData()
+    deleteBus(id) {
+      this.deleteData(id)
       this.showAlert("Удалено!")
     },
     getJSON() {
@@ -275,7 +304,72 @@ export default {
           this.alertText = "Ошибка!"
         }).then(() => this.getData())
       }
-    }
+    },
+    getIndex(list, id) {
+      for (let i = 0; i < list.length; i++) {
+        if (list[i].id === id) {
+          return i;
+        }
+      }
+    },
+    show(id) {
+      const index = this.getIndex(this.buses, id);
+      document.getElementById("form").style.display = "block"
+      document.getElementById("formAdd").style.display = "none"
+      document.getElementById("formUpdate").style.display = "inline-block"
+      this.start = this.buses[index].start;
+      this.id = this.buses[index].id;
+      this.number = this.buses[index].number;
+      this.end = this.buses[index].end;
+      if (this.buses[index].driver != null) {
+        this.driverId = this.buses[index].driver.id;
+      } else {
+        this.driverId = null;
+      }
+    },
+    showForAdd() {
+      this.start = null;
+      this.id = null;
+      this.number = null;
+      this.end = null;
+      this.driverId = null;
+      document.getElementById("form").style.display = "block"
+      document.getElementById("formUpdate").style.display = "none"
+      document.getElementById("formAdd").style.display = "inline-block"
+    },
+    clean() {
+      document.getElementById("form").style.display = "none";
+      this.start = null;
+      this.id = null;
+      this.end = null;
+      this.driverId = null;
+    },
+    generatePDF() {
+      const pdf = new jsPDF()
+      console.log(pdf.getFontList())
+
+      const myFont = font;
+
+      // add the font to jsPDF
+      pdf.addFileToVFS("MyFont.ttf", myFont);
+      pdf.addFont("MyFont.ttf", "MyFont", "normal");
+      pdf.setFont("MyFont");
+
+      let text = "Автобусы\n";
+      let driverText;
+      for (let i = 0; i < this.buses.length; i++) {
+        if (this.buses[i].driver != null) {
+          driverText = this.buses[i].driver.name;
+        } else {
+          driverText = "Без водителя";
+        }
+
+        text += this.buses[i].id + ") Номер: " + this.buses[i].number + ". Начало: " + this.buses[i].start + ". Окончание: " + this.buses[i].end + ". Водитель: " + driverText + ".\n"
+      }
+      pdf.text(text, 10, 10)
+      pdf.save("buses.pdf")
+      this.showAlert("Скачано!")
+    },
   }
 }
 </script>
@@ -288,6 +382,22 @@ export default {
 .background {
   background-image: url('\\img\\bus5.jpg');
   height: 100vh;
+}
+
+#form {
+  display: none;
+}
+
+#formUpdate {
+  display: none;
+}
+
+#formAdd {
+  display: none;
+}
+
+.formFile {
+  width: 75vh;
 }
 
 </style>
