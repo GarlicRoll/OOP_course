@@ -321,7 +321,7 @@ export default {
 }
 
 .background {
-  background-image: url('\\img\\driver2.jpg');
+  background-image: url('\\img\\driver3.jpg');
   height: 100vh;
 }
 

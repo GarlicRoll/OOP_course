@@ -1,5 +1,7 @@
 package org.example.model;
 
+import org.hibernate.annotations.Type;
+
 import java.util.List;
 import javax.persistence.*;
 
@@ -38,9 +40,12 @@ public final class Route {
     /**
      * Поле нарушения
      */
-    @OneToMany
-    @JoinColumn(name = "routeId")
-    private List<Violation> violations;
+    //@OneToMany
+    //@JoinColumn(name = "routeId")
+    //@Column(columnDefinition = "text[]")
+    //@Type(type = "org.example.model.CustomStringArrayType")
+    @ElementCollection
+    private List<String> violations;
 
     /**
      * Функция получения значения поля {@link Route#number}
@@ -79,7 +84,7 @@ public final class Route {
     @JoinTable(name = "routeviolations",
             joinColumns = @JoinColumn(name = "routeId", referencedColumnName = "id"))
      */
-    public List<Violation> getViolations() {
+    public List<String> getViolations() {
         return violations;
     }
 
@@ -100,7 +105,7 @@ public final class Route {
     /**
      * Функция установки значения поля {@link Route#violations}
      */
-    public void setViolations(List<Violation> violations) {
+    public void setViolations(List<String> violations) {
         this.violations = violations;
     }
 

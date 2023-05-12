@@ -6,6 +6,28 @@
                 :columns="columns"
                 :rows="routes"
                 class="table">
+
+          <template slot="table-row" slot-scope="props">
+                  <span v-if="props.column.field == ''">
+                     <b-card
+                         title="Card Title"
+
+
+                         tag="article"
+                         style="max-width: 70rem;max-height: 7rem"
+                         class="mb-2"
+                     >
+                      <b-card-text>
+                        hi
+                      </b-card-text>
+
+                    </b-card>
+                  </span>
+            <span v-else>
+                      {{props.formattedRow[props.column.field]}}
+                  </span>
+          </template>
+
         </vue-good-table>
         </div>
       <b-form inline class="layouts">
@@ -230,7 +252,11 @@ export default {
     },
 
     removeViolation() {
-
+      this.$http.patch(url + "/route/removeViolationsFrom/" + this.id3.toString()
+      ).catch((e) => {
+        console.log(e.toString())
+        this.alertText = "Ошибка!"
+      }).then(() => this.getData())
     }
 
   }

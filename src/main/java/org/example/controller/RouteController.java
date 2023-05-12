@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Level;
 
@@ -157,13 +158,14 @@ public class RouteController {
      * @return Обновлённый маршрут и HTTP код
      */
     @PatchMapping("addViolationTo/{id}")
-    public ResponseEntity<Route> addViolation(@PathVariable int id, @RequestBody Violation violation) {
+    public ResponseEntity<Route> addViolation(@PathVariable int id, @RequestBody Map<String, String> violation) {
         Route route = null;
+        System.out.println("HILE" + violation.get("violation"));
         Optional<Route> routeOptional = routeService.findRouteById(id);
         if (routeOptional.isPresent()) {
             route = routeOptional.get();
-            List<Violation> violations = route.getViolations();
-            violations.add(violation);
+            List<String> violations = route.getViolations();
+            violations.add(violation.get("violation"));
             route.setViolations(violations);
             route = routeService.updateRoute(route);
         }
