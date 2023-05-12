@@ -16,4 +16,4 @@
 ## Набросок графисеского интерфейса
 ![frontend](https://user-images.githubusercontent.com/75137969/223299329-1a2f3ada-b880-475e-bedf-7cdaff88d6bc.png)
 ## Пример отображения вкладки автобусов
-![image](https://user-images.githubusercontent.com/75137969/236075568-fe341cb5-44c2-473c-a83a-35f78d7a25d3.png)
+![image](https://user-images.githubusercontent.com/75137969/236505978-c1f86eda-a8bd-49e1-835a-23193a5a0423.png)
