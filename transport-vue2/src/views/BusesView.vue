@@ -85,7 +85,7 @@
       <b-button pill variant="danger" @click="clean">Закрыть</b-button>
     </b-form>
 
-
+    <div class="layouts">
     <b-alert
         :show="dismissCountDown"
         dismissible
@@ -101,6 +101,7 @@
           height="4px"
       ></b-progress>
     </b-alert>
+      </div>
 
   </div>
 </template>

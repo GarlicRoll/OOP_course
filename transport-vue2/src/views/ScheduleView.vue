@@ -90,6 +90,24 @@
         <b-button variant="primary" @click="removeViolation">Удалить</b-button>
       </b-form>
 
+      <div class="layouts">
+        <b-alert
+            :show="dismissCountDown"
+            dismissible
+            variant="success"
+            @dismissed="dismissCountDown=0"
+            @dismiss-count-down="countDownChanged"
+        >
+          <p>{{ alertText }} {{ dismissCountDown }} </p>
+          <b-progress
+              variant="success"
+              :max="dismissSecs"
+              :value="dismissCountDown"
+              height="4px"
+          ></b-progress>
+        </b-alert>
+      </div>
+
   </div>
 </template>
 
@@ -207,58 +225,83 @@ export default {
       this.showAlert("Удалено!")
     },
     addBus() {
-      this.$http.get(url + "/bus/" + this.busId.toString())
-          .then(response => {
-            const bus = response && response.data ? response.data : []
-            //localStorage.setItem('drivers', JSON.stringify(drivers))
-            this.$http.patch(url + "/route/addBusTo/" + this.id2.toString(),
-                bus
-            ).catch((e) => {
-              console.log(e.toString())
-              this.alertText = "Ошибка!"
-            }).then(() => this.getData())
-          }).catch(e => {
-        console.log(e)
-      })
+      if (this.busId != null) {
+        if (this.id2 != null) {
+          this.$http.get(url + "/bus/" + this.busId.toString())
+              .then(response => {
+                const bus = response && response.data ? response.data : []
+                //localStorage.setItem('drivers', JSON.stringify(drivers))
+                this.$http.patch(url + "/route/addBusTo/" + this.id2.toString(),
+                    bus
+                ).catch((e) => {
+                  console.log(e.toString())
+                  this.alertText = "Ошибка!"
+                }).then(() => this.getData())
+              }).catch(e => {
+            console.log(e)
+          })
+        } else {
+          this.showAlert("Введите номер маршрута!")
+        }
+      } else {
+        this.showAlert("Введите номер автобуса!")
+      }
     },
 
     removeBus() {
-      this.$http.get(url + "/bus/" + this.busId.toString())
-          .then(response => {
-            const bus = response && response.data ? response.data : []
-            //localStorage.setItem('drivers', JSON.stringify(drivers))
-            this.$http.patch(url + "/route/removeBusFrom/" + this.id2.toString(),
-                bus
-            ).catch((e) => {
-              console.log(e.toString())
-              this.alertText = "Ошибка!"
-            }).then(() => this.getData())
-          }).catch(e => {
-        console.log(e)
-      })
+      if (this.busId != null) {
+        if (this.id2 != null) {
+          this.$http.get(url + "/bus/" + this.busId.toString())
+              .then(response => {
+                const bus = response && response.data ? response.data : []
+                //localStorage.setItem('drivers', JSON.stringify(drivers))
+                this.$http.patch(url + "/route/removeBusFrom/" + this.id2.toString(),
+                    bus
+                ).catch((e) => {
+                  console.log(e.toString())
+                  this.alertText = "Ошибка!"
+                }).then(() => this.getData())
+              }).catch(e => {
+            console.log(e)
+          })
+        } else {
+          this.showAlert("Введите номер маршрута!")
+        }
+      } else {
+        this.showAlert("Введите номер автобуса!")
+      }
     },
     //TODO Сделать красивое отображение нарушений и зависимых комнонентов
     //TODO Сделать кнопки как ячейку у каждой строчки
     //TODO Добавить реализацию методов для нарушений
     addViolation() {
-      this.$http.patch(url + "/route/addViolationTo/" + this.id3.toString(),
-          {
-            violation: this.violation,
-          }
-      ).catch((e) => {
-        console.log(e.toString())
-        this.alertText = "Ошибка!"
-      }).then(() => this.getData())
+      if (this.id3 != null) {
+        this.$http.patch(url + "/route/addViolationTo/" + this.id3.toString(),
+            {
+              violation: this.violation,
+            }
+        ).catch((e) => {
+          console.log(e.toString())
+          this.alertText = "Ошибка!"
+        }).then(() => this.getData())
+        this.showAlert("Добавлено!")
+      } else {
+        this.showAlert("Введите номер!")
+      }
     },
 
     removeViolation() {
-      this.$http.patch(url + "/route/removeViolationsFrom/" + this.id3.toString()
-      ).catch((e) => {
-        console.log(e.toString())
-        this.alertText = "Ошибка!"
-      }).then(() => this.getData())
+      if (this.id3 != null) {
+        this.$http.patch(url + "/route/removeViolationsFrom/" + this.id3.toString()
+        ).catch((e) => {
+          console.log(e.toString())
+          this.alertText = "Ошибка!"
+        }).then(() => this.getData())
+        this.showAlert("Удалено!")
+      } else {
+        this.showAlert("Введите номер!")
+      }
     }
-
   }
 }
 </script>

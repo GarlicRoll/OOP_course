@@ -111,6 +111,8 @@ public class RouteController {
             routeNew = routeOptional.get();
             routeNew.setNumber(route.getNumber());
             route = routeService.updateRoute(routeNew);
+        } else {
+            throw new NotFoundException();
         }
 
         Main.logger.log(Level.INFO, "201 OK Server. Update one route. " + route.toString());
@@ -146,6 +148,8 @@ public class RouteController {
             }
             route.setBuses(buses);
             route = routeService.updateRoute(route);
+        } else {
+            throw new NotFoundException();
         }
 
         return new ResponseEntity<>(route, HttpStatus.valueOf(code));
@@ -168,6 +172,8 @@ public class RouteController {
             violations.add(violation.get("violation"));
             route.setViolations(violations);
             route = routeService.updateRoute(route);
+        } else {
+            throw new NotFoundException();
         }
 
         return new ResponseEntity<>(route, HttpStatus.valueOf(201));
@@ -181,6 +187,8 @@ public class RouteController {
             route = routeOptional.get();
             route.setViolations(null);
             route = routeService.updateRoute(route);
+        } else {
+            throw new NotFoundException();
         }
 
         return new ResponseEntity<>(route, HttpStatus.valueOf(201));
@@ -208,9 +216,13 @@ public class RouteController {
             }
             if (busId != -1) {
                 buses.remove(busId);
+            } else {
+                throw new NotFoundException();
             }
             route.setBuses(buses);
             route = routeService.updateRoute(route);
+        } else {
+            throw new NotFoundException();
         }
 
 

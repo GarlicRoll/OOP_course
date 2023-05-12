@@ -28,7 +28,7 @@ public final class Route {
     //@JoinTable(name = "routebuses",
     //            joinColumns = @JoinColumn(name = "routeId", referencedColumnName = "id"),
     //            inverseJoinColumns = @JoinColumn(name = "busId", referencedColumnName = "id"))
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Bus> buses;
 
     /**

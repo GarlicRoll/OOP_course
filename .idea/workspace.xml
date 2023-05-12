@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1d545a4-aebc-4c27-85fd-64878785bee5" name="Changes" comment="Подправлено окно автобусов">
+    <list default="true" id="e1d545a4-aebc-4c27-85fd-64878785bee5" name="Changes" comment="violations">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/RouteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/RouteController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Route.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Route.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/BusesView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/BusesView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/DriversView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/DriversView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/ScheduleView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/ScheduleView.vue" afterDir="false" />
     </list>
@@ -213,7 +214,7 @@
       <workItem from="1683134328578" duration="23245000" />
       <workItem from="1683237049507" duration="6190000" />
       <workItem from="1683295480966" duration="7253000" />
-      <workItem from="1683886121873" duration="8056000" />
+      <workItem from="1683886121873" duration="10402000" />
     </task>
     <task id="LOCAL-00001" summary="Добавлены связи между таблицами рабочие + немного улучшен визуал">
       <created>1683155302311</created>
@@ -250,7 +251,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683301675515</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="violations">
+      <created>1683894573618</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1683894573619</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,6 +281,7 @@
     <MESSAGE value="Окно водителей. Кнопки внутри таблицы." />
     <MESSAGE value="Поправлена сортировка, окно id недоступно для изменений" />
     <MESSAGE value="Подправлено окно автобусов" />
-    <option name="LAST_COMMIT_MESSAGE" value="Подправлено окно автобусов" />
+    <MESSAGE value="violations" />
+    <option name="LAST_COMMIT_MESSAGE" value="violations" />
   </component>
 </project>
