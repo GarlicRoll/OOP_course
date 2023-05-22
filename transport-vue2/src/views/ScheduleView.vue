@@ -8,32 +8,84 @@
                 class="table">
 
           <template slot="table-row" slot-scope="props">
-                  <span v-if="props.column.field == ''">
+                  <span v-if="props.column.field == 'before'">
+                     <b-button-group>
+                    <b-button squared variant="primary" @click="show(props.row.id)">Изменить</b-button>
+                    <b-button squared variant="danger" @click="setId(props.row.id)" v-b-modal.modal-delete-route>Удалить</b-button>
+
+                    <b-button variant="danger"  @click="setId(props.row.id)" v-b-modal.modal-remove-violations>Очистить графу нарушений</b-button>
+                       </b-button-group>
+                  </span>
+
+
+            <span v-else-if="props.column.field == 'violations'">
                      <b-card
-                         title="Card Title"
-
-
+                         title=""
                          tag="article"
-                         style="max-width: 70rem;max-height: 7rem"
+                         style="max-width: 70rem"
                          class="mb-2"
                      >
                       <b-card-text>
-                        hi
+                        <li v-for="violation in props.row.violations" v-bind:key="violation.id">
+                            {{ violation }}
+                         </li>
                       </b-card-text>
 
                     </b-card>
-                  </span>
+            </span>
+
+            <span v-else-if="props.column.field == 'buses'">
+                     <b-card
+                         title=""
+                         tag="article"
+                         style="max-width: 70rem"
+                         class="mb-2"
+                     >
+                      <b-card-text>
+                        <li v-for="bus in props.row.buses" v-bind:key="bus.id">
+                            {{ "Номер: "  + bus.id + " Номер автобуса: " + bus.number + " Начало: " + bus.start + " Конец: " + bus.end }}
+                            {{ "Имя водителя: " + bus.driver.name }}
+                         </li>
+                      </b-card-text>
+
+                    </b-card>
+            </span>
+
+
+
             <span v-else>
                       {{props.formattedRow[props.column.field]}}
-                  </span>
+            </span>
+
           </template>
 
         </vue-good-table>
         </div>
-      <b-form inline class="layouts">
+
+      <div class="layouts">
+        <b-button variant="primary" @click="showForAdd">Добавить</b-button>
+        <p></p>
+        <b-form-file
+            class="formFile"
+            accept=".json"
+            v-model="file"
+            :state="Boolean(file)"
+            drop-placeholder="Drop file here..."
+            placeholder="Выберите файл или перетащите сюда..."
+            browse-text="Выбрать"
+        ></b-form-file>
+        <p></p>
+
+        <b-button pill variant="secondary" @click="addJSON">Загрузить файл в формате .JSON</b-button>
+        <b-button pill variant="secondary" @click="getJSON">Выгрузить в формате .JSON</b-button>
+        <b-button pill variant="secondary" @click="generatePDF">Выгрузить в формате .PDF</b-button>
+      </div>
+
+
+      <b-form inline class="layouts" id="form">
         <label class="sr-only" for="inline-form-input-name">Name</label>
 
-        <b-form-input
+        <b-form-input readonly
             v-model="id1"
             id="inline-form-input-name"
             class="mb-2 mr-sm-2 mb-sm-0"
@@ -47,37 +99,22 @@
             placeholder="Номер маршрута"
         ></b-form-input>
 
-        <b-button variant="primary" @click="addRoute">Добавить</b-button>
-        <b-button variant="primary" @click="updateRoute">Обновить</b-button>
-        <b-button variant="primary" @click="deleteRoute">Удалить</b-button>
-      </b-form>
+        <b-button variant="primary" id="formUpdate" @click="updateRoute">Сохранить</b-button>
 
-      <b-form inline class="layouts">
+        <b-button variant="primary" id="formAdd" @click="addRoute">Сохранить</b-button>
+
+        <p></p>
+
         <b-form-input
-            v-model="id2"
+            v-model="busId"
             id="inline-form-input-name"
             class="mb-2 mr-sm-2 mb-sm-0"
-            placeholder="Номер"
+            placeholder="Автобус"
         ></b-form-input>
-
-      <b-form-input
-          v-model="busId"
-          id="inline-form-input-name"
-          class="mb-2 mr-sm-2 mb-sm-0"
-          placeholder="Автобус"
-      ></b-form-input>
 
         <b-button  variant="primary" @click="addBus">Добавить</b-button>
-        <b-button  variant="primary" @click="removeBus">Удалить</b-button>
-      </b-form >
-
-      <b-form inline class="layouts">
-        <b-form-input
-            v-model="id3"
-            id="inline-form-input-name"
-            class="mb-2 mr-sm-2 mb-sm-0"
-            placeholder="Номер"
-        ></b-form-input>
+        <b-button  variant="danger" @click="removeBus">Удалить</b-button>
+        <p></p>
 
         <b-form-input
             v-model="violation"
@@ -87,8 +124,12 @@
         ></b-form-input>
 
         <b-button variant="primary" @click="addViolation">Добавить</b-button>
-        <b-button variant="primary" @click="removeViolation">Удалить</b-button>
+        <p></p>
+        <b-button pill variant="danger" @click="clean">Закрыть</b-button>
+
       </b-form>
+
+
 
       <div class="layouts">
         <b-alert
@@ -108,6 +149,24 @@
         </b-alert>
       </div>
 
+      <b-modal
+          id="modal-remove-violations"
+          ref="modal"
+          title="Подтвердите очистку графы нарушений"
+          @ok="removeViolation"
+      >
+        Очистить графу нарушений?
+      </b-modal>
+
+      <b-modal
+          id="modal-delete-route"
+          ref="modal"
+          title="Подтвердите удаление маршрута"
+          @ok="deleteRoute"
+      >
+        Удалить маршрут?
+      </b-modal>
+
   </div>
 </template>
 
@@ -115,6 +174,8 @@
 
 import MainLayout from "@/layouts/MainLayout.vue";
 import {url} from "@/main";
+import jsPDF from "jspdf";
+import font from "@/Comic Sans MS-normal";
 export default {
   name: 'ScheduleView',
   components: {MainLayout},
@@ -150,6 +211,11 @@ export default {
         {
           label: 'Нарушения',
           field: 'violations',
+        },
+        {
+          label: 'Действия',
+          field: 'before',
+          sortable: false
         },
       ],
       routes : [],
@@ -196,7 +262,7 @@ export default {
       ).catch((e) => {
         console.log(e.toString())
         this.alertText = "Ошибка!"
-      }).then(() => this.getData())
+      }).then(() => this.clean()).then(() => this.getData())
     },
     deleteData() {
       this.$http.delete(url + "/route/" + this.id1.toString()).catch((e) => {
@@ -213,6 +279,7 @@ export default {
     },
     addRoute() {
       this.createData()
+      this.clean()
       this.showAlert("Добавлено!")
 
     },
@@ -226,17 +293,17 @@ export default {
     },
     addBus() {
       if (this.busId != null) {
-        if (this.id2 != null) {
+        if (this.id1 != null) {
           this.$http.get(url + "/bus/" + this.busId.toString())
               .then(response => {
                 const bus = response && response.data ? response.data : []
                 //localStorage.setItem('drivers', JSON.stringify(drivers))
-                this.$http.patch(url + "/route/addBusTo/" + this.id2.toString(),
+                this.$http.patch(url + "/route/addBusTo/" + this.id1.toString(),
                     bus
                 ).catch((e) => {
                   console.log(e.toString())
                   this.alertText = "Ошибка!"
-                }).then(() => this.getData())
+                }).then(() => this.clean()).then(() => this.getData())
               }).catch(e => {
             console.log(e)
           })
@@ -250,12 +317,12 @@ export default {
 
     removeBus() {
       if (this.busId != null) {
-        if (this.id2 != null) {
+        if (this.id1 != null) {
           this.$http.get(url + "/bus/" + this.busId.toString())
               .then(response => {
                 const bus = response && response.data ? response.data : []
                 //localStorage.setItem('drivers', JSON.stringify(drivers))
-                this.$http.patch(url + "/route/removeBusFrom/" + this.id2.toString(),
+                this.$http.patch(url + "/route/removeBusFrom/" + this.id1.toString(),
                     bus
                 ).catch((e) => {
                   console.log(e.toString())
@@ -271,19 +338,16 @@ export default {
         this.showAlert("Введите номер автобуса!")
       }
     },
-    //TODO Сделать красивое отображение нарушений и зависимых комнонентов
-    //TODO Сделать кнопки как ячейку у каждой строчки
-    //TODO Добавить реализацию методов для нарушений
     addViolation() {
-      if (this.id3 != null) {
-        this.$http.patch(url + "/route/addViolationTo/" + this.id3.toString(),
+      if (this.id1 != null) {
+        this.$http.patch(url + "/route/addViolationTo/" + this.id1.toString(),
             {
               violation: this.violation,
             }
         ).catch((e) => {
           console.log(e.toString())
           this.alertText = "Ошибка!"
-        }).then(() => this.getData())
+        }).then(() => this.clean()).then(() => this.getData())
         this.showAlert("Добавлено!")
       } else {
         this.showAlert("Введите номер!")
@@ -291,17 +355,95 @@ export default {
     },
 
     removeViolation() {
-      if (this.id3 != null) {
-        this.$http.patch(url + "/route/removeViolationsFrom/" + this.id3.toString()
+      if (this.id1 != null) {
+        this.$http.patch(url + "/route/removeViolationsFrom/" + this.id1.toString()
         ).catch((e) => {
           console.log(e.toString())
           this.alertText = "Ошибка!"
         }).then(() => this.getData())
         this.showAlert("Удалено!")
       } else {
-        this.showAlert("Введите номер!")
+        this.showAlert("Графа нарушений и так пуста!")
       }
+    },
+
+    getJSON() {
+      var fileDownload = require('js-file-download');
+      fileDownload(JSON.stringify(this.routes), 'routes.json');
+      this.showAlert("Скачано!")
+    },
+    addJSON() {
+      let reader = new FileReader()
+      reader.readAsText(this.file)
+
+      reader.onload = () => {
+        let data = JSON.parse(reader.result)
+        this.$http.post(url + "/route/list", data).catch(() => {
+          this.alertText = "Ошибка!"
+        }).then(() => this.getData())
+      }
+      this.showAlert("Загружено!")
+    },
+    generatePDF() {
+      const pdf = new jsPDF()
+      console.log(pdf.getFontList())
+
+      const myFont = font;
+
+      // add the font to jsPDF
+      pdf.addFileToVFS("MyFont.ttf", myFont);
+      pdf.addFont("MyFont.ttf", "MyFont", "normal");
+      pdf.setFont("MyFont");
+
+      let text = "Маршруты\n";
+      for (let i = 0; i < this.routes.length; i++) {
+        text += this.routes[i].id + ") Номер автобуса: " + this.routes[i].number + ". Кол-во автобусов: " + this.routes[i].buses.length + " . Кол-во нарушений: " + this.routes[i].violations.length + ".\n"
+      }
+      pdf.text(text, 10, 10)
+      pdf.save("routes.pdf")
+      this.showAlert("Скачано!")
+    },
+    getIndex(list, id) {
+      for (let i = 0; i < list.length; i++ ) {
+        if (list[i].id === id) {
+          return i;
+        }
+      }
+    },
+    show(id) {
+      const index = this.getIndex(this.routes, id);
+      document.getElementById("form").style.display = "block"
+      document.getElementById("formAdd").style.display = "none"
+      document.getElementById("formUpdate").style.display = "inline-block"
+      this.number = this.routes[index].number;
+      this.id1 = this.routes[index].id;
+      this.buses = this.routes[index].buses;
+      this.violations = this.routes[index].violations;
+    },
+    showForAdd() {
+      this.id1 = null;
+      this.id2 = null;
+      this.id3 = null;
+      this.number = null;
+      this.buses = null;
+      this.violations = '';
+      document.getElementById("form").style.display = "block"
+      document.getElementById("formUpdate").style.display = "none"
+      document.getElementById("formAdd").style.display = "inline-block"
+    },
+    clean() {
+      document.getElementById("form").style.display = "none";
+      this.id1 = null;
+      this.id2 = null;
+      this.id3 = null;
+      this.number = null;
+      this.buses = null;
+      this.violations = '';
+    },
+    setId(id1) {
+      this.id1 = id1;
     }
+
   }
 }
 </script>
@@ -314,6 +456,22 @@ export default {
 .background {
   background-image: url('\\img\\route2.jpg');
   height: 100vh;
+}
+
+#form {
+  display: none;
+}
+
+#formUpdate {
+  display: none;
+}
+
+#formAdd {
+  display: none;
+}
+
+.formFile {
+  width: 75vh;
 }
 
 </style>

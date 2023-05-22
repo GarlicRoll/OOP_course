@@ -10,7 +10,7 @@
         <template slot="table-row" slot-scope="props">
                   <span v-if="props.column.field == 'before'">
                     <b-button squared variant="primary" @click="show(props.row.id)">Изменить</b-button>
-                    <b-button squared variant="danger" @click="deleteBus(props.row.id)">Удалить</b-button>
+                    <b-button squared variant="danger"  @click="setId(props.row.id)" v-b-modal.modal-delete-bus>Удалить</b-button>
                   </span>
           <span v-else>
                       {{ props.formattedRow[props.column.field] }}
@@ -35,7 +35,7 @@
       ></b-form-file>
       <p></p>
 
-      <b-button pill variant="secondary" @click="addJSON">Звгрузить файл в формате .JSON</b-button>
+      <b-button pill variant="secondary" @click="addJSON">Загрузить файл в формате .JSON</b-button>
       <b-button pill variant="secondary" @click="getJSON">Выгрузить в формате .JSON</b-button>
       <b-button pill variant="secondary" @click="generatePDF">Выгрузить в формате .PDF</b-button>
     </div>
@@ -103,7 +103,17 @@
     </b-alert>
       </div>
 
+    <b-modal
+        id="modal-delete-bus"
+        ref="modal"
+        title="Подтвердите удаление автобуса"
+        @ok="deleteBus"
+    >
+      Удалить автобус?
+    </b-modal>
+
   </div>
+
 </template>
 
 <script>
@@ -263,8 +273,8 @@ export default {
       */
 
     },
-    deleteData(id) {
-      this.$http.delete(url + "/bus/" + id.toString()).catch((e) => {
+    deleteData() {
+      this.$http.delete(url + "/bus/" + this.id.toString()).catch((e) => {
         console.log(e.toString())
         this.alertText = "Ошибка!"
       }).then(() => this.getData())
@@ -286,13 +296,14 @@ export default {
       this.updateData()
       this.showAlert("Обновлено!")
     },
-    deleteBus(id) {
-      this.deleteData(id)
+    deleteBus() {
+      this.deleteData()
       this.showAlert("Удалено!")
     },
     getJSON() {
       var fileDownload = require('js-file-download');
       fileDownload(JSON.stringify(this.buses), 'buses.json');
+      this.showAlert("Скачано!")
     },
     addJSON() {
       let reader = new FileReader()
@@ -305,6 +316,7 @@ export default {
           this.alertText = "Ошибка!"
         }).then(() => this.getData())
       }
+      this.showAlert("Загружено!")
     },
     getIndex(list, id) {
       for (let i = 0; i < list.length; i++) {
@@ -371,6 +383,9 @@ export default {
       pdf.save("buses.pdf")
       this.showAlert("Скачано!")
     },
+    setId(id) {
+      this.id = id;
+    }
   }
 }
 </script>

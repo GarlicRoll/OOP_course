@@ -4,6 +4,7 @@ import org.example.Main;
 import org.example.exceptions.NotFoundException;
 import org.example.model.Bus;
 import org.example.service.BusService;
+import org.example.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,9 @@ public class BusController {
 
     @Autowired
     BusService busService;
+
+    @Autowired
+    DriverService driverService;
 
     public BusController(BusService busService) {
         this.busService = busService;

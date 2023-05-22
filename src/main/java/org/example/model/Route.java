@@ -115,4 +115,9 @@ public final class Route {
     public void setBuses(List<Bus> buses) {
         this.buses = buses;
     }
+
+    @Override
+    public String toString() {
+        return "Id: " + this.id + " Number: " + this.number + " Num of buses: " + this.buses.size() + " Num of violations: " + this.violations.size();
+    }
 }

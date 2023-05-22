@@ -11,7 +11,7 @@
       <template slot="table-row" slot-scope="props">
                   <span v-if="props.column.field == 'before'">
                     <b-button squared variant="primary" @click="show(props.row.id)">Изменить</b-button>
-                    <b-button squared variant="danger" @click="deleteDriver(props.row.id)">Удалить</b-button>
+                    <b-button squared variant="danger" @click="setId(props.row.id)" v-b-modal.modal-delete-driver>Удалить</b-button>
                   </span>
                   <span v-else>
                       {{props.formattedRow[props.column.field]}}
@@ -37,7 +37,7 @@
     ></b-form-file>
       <p></p>
 
-    <b-button pill variant="secondary" @click="addJSON">Звгрузить файл в формате .JSON</b-button>
+    <b-button pill variant="secondary" @click="addJSON">Загрузить файл в формате .JSON</b-button>
       <b-button pill variant="secondary" @click="getJSON">Выгрузить в формате .JSON</b-button>
       <b-button pill variant="secondary" @click="generatePDF">Выгрузить в формате .PDF</b-button>
     </div>
@@ -102,6 +102,16 @@
       ></b-progress>
     </b-alert>
     </div>
+
+    <b-modal
+        id="modal-delete-driver"
+        ref="modal"
+        title="Подтвердите удаление водителя"
+        @ok="deleteDriver"
+    >
+      Удалить водителя?
+    </b-modal>
+
   </div>
 </template>
 
@@ -207,8 +217,8 @@ export default {
         this.alertText = "Ошибка!"
       }).then(() => this.getData())
     },
-    deleteData(id) {
-      this.$http.delete(url + "/driver/" + id.toString()).catch((e) => {
+    deleteData() {
+      this.$http.delete(url + "/driver/" + this.id.toString()).catch((e) => {
         if (e.response.status === 404) {
           this.alertText = "Не найдено!"
           console.log("Error 404. Driver not found. WebApp. " + e.toString())
@@ -230,8 +240,8 @@ export default {
       this.clean()
       this.showAlert("Добавлено!")
     },
-    deleteDriver(id) {
-      this.deleteData(id)
+    deleteDriver() {
+      this.deleteData()
       this.showAlert("Удалено!")
     },
     updateDriver() {
@@ -311,6 +321,9 @@ export default {
       this.category = '';
       this.experience= null;
     },
+    setId(id) {
+      this.id = id;
+    }
   },
 };
 </script>
