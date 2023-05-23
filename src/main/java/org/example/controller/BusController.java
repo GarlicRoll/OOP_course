@@ -135,8 +135,10 @@ public class BusController {
         if (bus.getDriver() != null) {
             for (Bus value : buses) {
                 if (value.getDriver() != null && (value.getDriver().getId() == bus.getDriver().getId())) {
-                    alreadyExists = true;
-                    break;
+                    if (value.getId() != bus.getId()) {
+                        alreadyExists = true;
+                        break;
+                    }
                 }
             }
         }

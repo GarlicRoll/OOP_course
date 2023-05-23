@@ -420,6 +420,7 @@ export default {
       this.id1 = this.routes[index].id;
       this.buses = this.routes[index].buses;
       this.violations = this.routes[index].violations;
+      this.violation = "";
     },
     showForAdd() {
       this.id1 = null;
@@ -428,6 +429,7 @@ export default {
       this.number = null;
       this.buses = null;
       this.violations = '';
+      this.violation = "";
       document.getElementById("form").style.display = "block"
       document.getElementById("formUpdate").style.display = "none"
       document.getElementById("formAdd").style.display = "inline-block"
@@ -440,6 +442,7 @@ export default {
       this.number = null;
       this.buses = null;
       this.violations = '';
+      this.violation = "";
     },
     setId(id1) {
       this.id1 = id1;
@@ -455,7 +458,7 @@ export default {
 }
 
 .background {
-  background-image: url('\\img\\route2.jpg');
+  background-image: url('\\img\\route3.jpg');
   height: 100vh;
 }
 
