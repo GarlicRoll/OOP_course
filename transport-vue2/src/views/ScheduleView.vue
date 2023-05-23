@@ -94,7 +94,7 @@
         <b-button variant="primary" id="formAdd" @click="addRoute">Сохранить</b-button>
 
         <p></p>
-
+        <div v-if="updateCheck == 1">
         <b-form-input
             v-model="busId"
             id="inline-form-input-name"
@@ -117,6 +117,7 @@
 
         <b-button variant="primary" @click="addViolation">Добавить</b-button>
         <p></p>
+        </div>
         <b-button pill variant="danger" @click="clean">Закрыть</b-button>
 
       </b-form>
@@ -173,6 +174,7 @@ export default {
   components: {MainLayout},
   data(){
     return {
+      updateCheck : 0,
       id1 : null,
       id2 : null,
       id3 : null,
@@ -412,6 +414,7 @@ export default {
       }
     },
     show(id) {
+      this.updateCheck = 1;
       const index = this.getIndex(this.routes, id);
       document.getElementById("form").style.display = "block"
       document.getElementById("formAdd").style.display = "none"
@@ -423,6 +426,7 @@ export default {
       this.violation = "";
     },
     showForAdd() {
+      this.updateCheck = 0;
       this.id1 = null;
       this.id2 = null;
       this.id3 = null;

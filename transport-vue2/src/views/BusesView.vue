@@ -59,14 +59,16 @@
           class="mb-2 mr-sm-2 mb-sm-0"
           placeholder="Время конца маршрута"
       ></b-form-input>
-
+      <p></p>
+      <div v-if="updateCheck==1">
       <b-form-input
           v-model="driverId"
           id="inline-form-input-name"
           class="mb-2 mr-sm-2 mb-sm-0"
           placeholder="Водитель"
       ></b-form-input>
-
+      </div>
+      <p></p>
       <b-button variant="primary" id="formUpdate" @click="updateBus">Сохранить</b-button>
 
       <b-button variant="primary" id="formAdd" @click="addBus">Сохранить</b-button>
@@ -118,6 +120,7 @@ export default {
   components: {MainLayout},
   data() {
     return {
+      updateCheck : 0,
       file: null,
       dismissSecs: 3,
       dismissCountDown: 0,
@@ -201,6 +204,7 @@ export default {
                 }).then(() => this.getData())
               }
           ).catch(e => {
+        this.alertText = "Водитель не найден!"
         console.log(e)
       }).then(() => {
 
@@ -212,7 +216,7 @@ export default {
           end: this.end,
         }).catch(() => {
           this.alertText = "Ошибка!"
-        }).then(() => this.getData())
+        }).then(() => this.clean()).then(() => this.getData())
       }
 
     },
@@ -277,7 +281,6 @@ export default {
     },
     addBus() {
       this.createData()
-      this.clean()
       this.showAlert("Добавлено!")
 
     },
@@ -315,6 +318,7 @@ export default {
       }
     },
     show(id) {
+      this.updateCheck = 1;
       const index = this.getIndex(this.buses, id);
       document.getElementById("form").style.display = "block"
       document.getElementById("formAdd").style.display = "none"
@@ -330,6 +334,7 @@ export default {
       }
     },
     showForAdd() {
+      this.updateCheck = 0;
       this.start = null;
       this.id = null;
       this.number = null;

@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1d545a4-aebc-4c27-85fd-64878785bee5" name="Changes" comment="Убран баг при удалении связанных сущностей (теперь вместо падения сервера удаляется связь между сущностями (правда при первом нажатии удаляется связь, а только при втором сущность))">
+    <list default="true" id="e1d545a4-aebc-4c27-85fd-64878785bee5" name="Changes" comment="Исправление при изменение автобуса (+ новая картинка для маршрутов)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/BusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/BusController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Bus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Bus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/BusesView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/BusesView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/ScheduleView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/ScheduleView.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -214,7 +216,7 @@
       <workItem from="1683886121873" duration="10402000" />
       <workItem from="1684084702875" duration="4467000" />
       <workItem from="1684764791894" duration="17765000" />
-      <workItem from="1684827967536" duration="7089000" />
+      <workItem from="1684827967536" duration="9885000" />
     </task>
     <task id="LOCAL-00001" summary="Добавлены связи между таблицами рабочие + немного улучшен визуал">
       <created>1683155302311</created>
@@ -272,7 +274,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684834350459</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Исправление при изменение автобуса (+ новая картинка для маршрутов)">
+      <created>1684835237262</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1684835237262</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -298,6 +307,7 @@
     <MESSAGE value="violations" />
     <MESSAGE value="Добавлены карточки для маршрутов и модальные подтверждения удалений" />
     <MESSAGE value="Убран баг при удалении связанных сущностей (теперь вместо падения сервера удаляется связь между сущностями (правда при первом нажатии удаляется связь, а только при втором сущность))" />
-    <option name="LAST_COMMIT_MESSAGE" value="Убран баг при удалении связанных сущностей (теперь вместо падения сервера удаляется связь между сущностями (правда при первом нажатии удаляется связь, а только при втором сущность))" />
+    <MESSAGE value="Исправление при изменение автобуса (+ новая картинка для маршрутов)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Исправление при изменение автобуса (+ новая картинка для маршрутов)" />
   </component>
 </project>

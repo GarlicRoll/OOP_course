@@ -38,7 +38,7 @@ public final class Bus {
     /**
      * Поле водителя автобуса
      */
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "driver")
     private Driver driver;
 

@@ -163,20 +163,9 @@ public class BusController {
     @DeleteMapping("{id}")
     public ResponseEntity<Integer> delete(@PathVariable int id) {
 
-        Optional<Bus> busOptional = busService.findBusById(id);
-        Bus bus;
+        busService.findBusById(id);
 
-        if (busOptional.isPresent()) {
-            bus = busOptional.get();
-            if (bus.getDriver() != null) {
-                bus.setDriver(null);
-                busService.saveBus(bus);
-                busService.deleteBus(id);
-            } else {
-                busService.deleteBus(id);
-            }
-        }
-
+        busService.deleteBus(id);
 
         Main.logger.log(Level.INFO, "201 OK Server. Delete one bus. " + id);
 
