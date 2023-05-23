@@ -118,6 +118,10 @@ public final class Route {
 
     @Override
     public String toString() {
-        return "Id: " + this.id + " Number: " + this.number + " Num of buses: " + this.buses.size() + " Num of violations: " + this.violations.size();
+        if (this.buses != null && this.violations != null) {
+            return "Id: " + this.id + " Number: " + this.number + " Num of buses: " + this.buses.size() + " Num of violations: " + this.violations.size();
+        } else {
+            return "Id: " + this.id + " Number: " + this.number;
+        }
     }
 }

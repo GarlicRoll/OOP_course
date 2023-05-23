@@ -24,18 +24,7 @@
     <div class="layouts">
       <b-button variant="primary" @click="showForAdd">Добавить</b-button>
       <p></p>
-      <b-form-file
-          class="formFile"
-          accept=".json"
-          v-model="file"
-          :state="Boolean(file)"
-          drop-placeholder="Drop file here..."
-          placeholder="Выберите файл или перетащите сюда..."
-          browse-text="Выбрать"
-      ></b-form-file>
-      <p></p>
 
-      <b-button pill variant="secondary" @click="addJSON">Загрузить файл в формате .JSON</b-button>
       <b-button pill variant="secondary" @click="getJSON">Выгрузить в формате .JSON</b-button>
       <b-button pill variant="secondary" @click="generatePDF">Выгрузить в формате .PDF</b-button>
     </div>

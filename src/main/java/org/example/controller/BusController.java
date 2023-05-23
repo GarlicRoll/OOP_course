@@ -74,11 +74,31 @@ public class BusController {
     @PostMapping
     public ResponseEntity<Bus> create(@RequestBody Bus bus) {
 
-        busService.saveBus(bus);
-        //TODO убрать возможность добавлять одного водителя на разные автобусы (или сделать manytomany)
-        Main.logger.log(Level.INFO, "201 OK Server. Post one bus. " + bus);
+        List<Bus> buses = busService.findAllBuses();
 
-        return new ResponseEntity<>(bus, HttpStatus.valueOf(201));
+        // Проверка того, прикреплён ли водитель к какому-либо ещё автобусу
+        boolean alreadyExists = false;
+
+        if (bus.getDriver() != null) {
+            for (Bus value : buses) {
+                if (value.getDriver() != null && (value.getDriver().getId() == bus.getDriver().getId())) {
+                    alreadyExists = true;
+                    break;
+                }
+            }
+        }
+
+        int statusCode = 201;
+        if (!alreadyExists) {
+            bus = busService.saveBus(bus);
+            Main.logger.log(Level.INFO, "201 OK Server. Update one bus. " + bus);
+        } else {
+            Main.logger.log(Level.INFO, "409 Server. Driver already connected to another bus. " + bus);
+            statusCode = 409;
+        }
+
+
+        return new ResponseEntity<>(bus, HttpStatus.valueOf(statusCode));
     }
 
     /***
@@ -107,11 +127,30 @@ public class BusController {
 
         bus.setId(id);
 
-        bus = busService.saveBus(bus);
+        List<Bus> buses = busService.findAllBuses();
 
-        Main.logger.log(Level.INFO, "201 OK Server. Update one bus. " + bus);
+        // Проверка того, прикреплён ли водитель к какому-либо ещё автобусу
+        boolean alreadyExists = false;
 
-        return new ResponseEntity<>(bus, HttpStatus.valueOf(201));
+        if (bus.getDriver() != null) {
+            for (Bus value : buses) {
+                if (value.getDriver() != null && (value.getDriver().getId() == bus.getDriver().getId())) {
+                    alreadyExists = true;
+                    break;
+                }
+            }
+        }
+
+        int statusCode = 201;
+        if (!alreadyExists) {
+            bus = busService.saveBus(bus);
+            Main.logger.log(Level.INFO, "201 OK Server. Update one bus. " + bus);
+        } else {
+            Main.logger.log(Level.INFO, "409 Server. Driver already connected to another bus. " + bus);
+            statusCode = 409;
+        }
+
+        return new ResponseEntity<>(bus, HttpStatus.valueOf(statusCode));
     }
 
     /***
@@ -122,11 +161,22 @@ public class BusController {
     @DeleteMapping("{id}")
     public ResponseEntity<Integer> delete(@PathVariable int id) {
 
-        busService.findBusById(id);
+        Optional<Bus> busOptional = busService.findBusById(id);
+        Bus bus;
 
-        busService.deleteBus(id);
+        if (busOptional.isPresent()) {
+            bus = busOptional.get();
+            if (bus.getDriver() != null) {
+                bus.setDriver(null);
+                busService.saveBus(bus);
+                busService.deleteBus(id);
+            } else {
+                busService.deleteBus(id);
+            }
+        }
 
-        Main.logger.log(Level.INFO, "201 OK Server. Delete one bus. " + Integer.toString(id));
+
+        Main.logger.log(Level.INFO, "201 OK Server. Delete one bus. " + id);
 
         return new ResponseEntity<>(id, HttpStatus.valueOf(201));
     }

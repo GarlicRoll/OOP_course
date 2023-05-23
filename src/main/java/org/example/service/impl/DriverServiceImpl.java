@@ -1,11 +1,14 @@
 package org.example.service.impl;
 
+import org.example.model.Bus;
 import org.example.model.Driver;
+import org.example.repository.BusRepository;
 import org.example.repository.DriverRepository;
 import org.example.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.PreRemove;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +17,9 @@ public class DriverServiceImpl implements DriverService {
 
     @Autowired
     DriverRepository driverRepository;
+
+    @Autowired
+    BusRepository busRepository;
 
     public DriverServiceImpl(DriverRepository driverRepository) {
         this.driverRepository = driverRepository;
@@ -50,6 +56,17 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public void deleteDriver(int id) {
+        List<Bus> buses = busRepository.findAll();
+
+        for (Bus bus : buses) {
+            if (bus.getDriver() != null) {
+                if (bus.getDriver().getId() == id) {
+                    bus.setDriver(null);
+                    busRepository.save(bus);
+                    break;
+                }
+            }
+        }
         driverRepository.deleteById(id);
     }
 }

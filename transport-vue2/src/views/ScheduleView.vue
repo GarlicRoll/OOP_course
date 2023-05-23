@@ -44,7 +44,9 @@
                       <b-card-text>
                         <li v-for="bus in props.row.buses" v-bind:key="bus.id">
                             {{ "Номер: "  + bus.id + " Номер автобуса: " + bus.number + " Начало: " + bus.start + " Конец: " + bus.end }}
+                            <div v-if="bus.driver != null">
                             {{ "Имя водителя: " + bus.driver.name }}
+                              </div>
                          </li>
                       </b-card-text>
 
@@ -65,18 +67,6 @@
       <div class="layouts">
         <b-button variant="primary" @click="showForAdd">Добавить</b-button>
         <p></p>
-        <b-form-file
-            class="formFile"
-            accept=".json"
-            v-model="file"
-            :state="Boolean(file)"
-            drop-placeholder="Drop file here..."
-            placeholder="Выберите файл или перетащите сюда..."
-            browse-text="Выбрать"
-        ></b-form-file>
-        <p></p>
-
-        <b-button pill variant="secondary" @click="addJSON">Загрузить файл в формате .JSON</b-button>
         <b-button pill variant="secondary" @click="getJSON">Выгрузить в формате .JSON</b-button>
         <b-button pill variant="secondary" @click="generatePDF">Выгрузить в формате .PDF</b-button>
       </div>
@@ -110,6 +100,7 @@
             id="inline-form-input-name"
             class="mb-2 mr-sm-2 mb-sm-0"
             placeholder="Автобус"
+
         ></b-form-input>
 
         <b-button  variant="primary" @click="addBus">Добавить</b-button>
@@ -121,6 +112,7 @@
             id="inline-form-input-name"
             class="mb-2 mr-sm-2 mb-sm-0"
             placeholder="Нарушение"
+
         ></b-form-input>
 
         <b-button variant="primary" @click="addViolation">Добавить</b-button>
@@ -396,8 +388,17 @@ export default {
       pdf.setFont("MyFont");
 
       let text = "Маршруты\n";
+
       for (let i = 0; i < this.routes.length; i++) {
-        text += this.routes[i].id + ") Номер автобуса: " + this.routes[i].number + ". Кол-во автобусов: " + this.routes[i].buses.length + " . Кол-во нарушений: " + this.routes[i].violations.length + ".\n"
+        let violationsText = "";
+        for (let j = 0; j < this.routes[i].violations.length; j++) {
+          violationsText += "\n    -" + this.routes[i].violations[j];
+        }
+        text += this.routes[i].id + ") Номер автобуса: " + this.routes[i].number + ". Кол-во автобусов: " +
+            this.routes[i].buses.length + " . Кол-во нарушений: " + this.routes[i].violations.length + ".\n";
+        if (violationsText !== "") {
+          text += "Нарушения: " + violationsText + "\n";
+        }
       }
       pdf.text(text, 10, 10)
       pdf.save("routes.pdf")

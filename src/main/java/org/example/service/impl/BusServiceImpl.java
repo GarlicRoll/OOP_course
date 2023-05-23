@@ -49,6 +49,17 @@ public class BusServiceImpl implements BusService {
 
     @Override
     public void deleteBus(int id) {
+        Optional<Bus> busOptional = busRepository.findById(id);
+        Bus bus;
+
+        if (busOptional.isPresent()) {
+            bus = busOptional.get();
+            // Открепляем водителя, если он есть
+            if (bus.getDriver() != null) {
+                bus.setDriver(null);
+                busRepository.save(bus);
+            }
+        }
         busRepository.deleteById(id);
     }
 }

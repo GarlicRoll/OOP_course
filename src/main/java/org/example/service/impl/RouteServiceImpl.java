@@ -6,6 +6,7 @@ import org.example.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.PreRemove;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +51,17 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     public void deleteRoute(int id) {
+        Optional<Route> routeOptional = routeRepository.findById(id);
+        Route route;
+
+        if (routeOptional.isPresent()) {
+            route = routeOptional.get();
+            // Открепляем водителя, если он есть
+            if (route.getBuses() != null) {
+                route.setBuses(null);
+                routeRepository.save(route);
+            }
+        }
         routeRepository.deleteById(id);
     }
 }

@@ -17,14 +17,16 @@
     >
       <!-- Text slides with image -->
       <b-carousel-slide
-          caption="First slide"
-          text="Nulla vitae elit libero, a pharetra augue mollis interdum."
+          caption="Транспортная система"
+
           img-src="https://3park.ru/wp-content/uploads/2021/10/mobile_file_2021-10-15_11-54-03.jpg"
       ></b-carousel-slide>
 
       <!-- Slides with custom text -->
-      <b-carousel-slide img-src="https://resizer.mail.ru/p/d86f3cb3-c654-5d0c-8bc8-fd0176e74c98/AQABY8tqJ1DCnqMdDOdt4pQaKtaplb5mjWGhXfjzZyvxmmw9IuUYLNAK-WlXpEUu_8h7wal8BrltTuhK8R709PC-Hdk.jpg">
-        <h1>Hello world!</h1>
+      <b-carousel-slide img-src="https://resizer.mail.ru/p/d86f3cb3-c654-5d0c-8bc8-fd0176e74c98/AQABY8tqJ1DCnqMdDOdt4pQaKtaplb5mjWGhXfjzZyvxmmw9IuUYLNAK-WlXpEUu_8h7wal8BrltTuhK8R709PC-Hdk.jpg"
+                        caption="Транспортная система"
+                        text="Добро пожаловать в наш инновационный сервис.">
+
       </b-carousel-slide>
 
       <!-- Slides with image only -->
@@ -35,11 +37,6 @@
       <b-carousel-slide img-src="https://pitertransport.com/assets/images/uploaded/1641063262979.jpg"></b-carousel-slide>
 
     </b-carousel>
-
-    <p class="mt-4">
-      Slide #: {{ slide }}<br>
-      Sliding: {{ sliding }}
-    </p>
   </div>
 </template>
 
