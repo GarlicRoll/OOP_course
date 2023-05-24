@@ -499,7 +499,7 @@ export default {
         this.$http.patch(url + "/route/removeViolationsFrom/" + this.id1.toString()
         ).catch((e) => {
           console.log(e.toString())
-          this.alertText = "Ошибка!"
+          this.alertText = "Графа нарушений и так пуста!"
         }).then(() => this.getData())
         this.showAlert("Удалено!")
       } else {

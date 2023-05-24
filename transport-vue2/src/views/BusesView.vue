@@ -99,7 +99,7 @@
         Время окончания должно быть от 0 до 23.
       </b-form-invalid-feedback>
       <b-form-valid-feedback :state="validationEnd">
-        Такое время оончания подходит.
+        Такое время окончания подходит.
       </b-form-valid-feedback>
 
 

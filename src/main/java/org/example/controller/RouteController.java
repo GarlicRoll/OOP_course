@@ -196,16 +196,20 @@ public class RouteController {
     @PatchMapping("removeViolationsFrom/{id}")
     public ResponseEntity<Route> removeViolations(@PathVariable int id) {
         Route route = null;
+        int statusCode = 201;
         Optional<Route> routeOptional = routeService.findRouteById(id);
         if (routeOptional.isPresent()) {
             route = routeOptional.get();
+            if (route.getViolations().size() == 0) {
+                statusCode = 409;
+            }
             route.setViolations(null);
             route = routeService.updateRoute(route);
         } else {
             throw new NotFoundException();
         }
 
-        return new ResponseEntity<>(route, HttpStatus.valueOf(201));
+        return new ResponseEntity<>(route, HttpStatus.valueOf(statusCode));
     }
 
     /***

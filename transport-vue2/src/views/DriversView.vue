@@ -92,31 +92,31 @@
 
         <b-button pill variant="danger" @click="clean">Закрыть</b-button>
 
-      <b-form-invalid-feedback :state="validationName">
+      <b-form-invalid-feedback id="validation" :state="validationName">
         Имя должно быть длиннее 3 символов и не являться цифрой.
-      </b-form-invalid-feedback>
-      <b-form-valid-feedback :state="validationName">
+      </b-form-invalid-feedback >
+      <b-form-valid-feedback id="validation" :state="validationName">
         Такое имя подходит.
       </b-form-valid-feedback>
 
-      <b-form-invalid-feedback :state="validationAge">
+      <b-form-invalid-feedback id="validation" :state="validationAge">
       Возраст должен быть от 16 до 99.
       </b-form-invalid-feedback>
-      <b-form-valid-feedback :state="validationAge">
+      <b-form-valid-feedback id="validation" :state="validationAge">
         Такой возраст подходит.
       </b-form-valid-feedback>
 
-      <b-form-invalid-feedback :state="validationExperience">
+      <b-form-invalid-feedback id="validation" :state="validationExperience">
         Опыт должен быть меньше возраста минимум на 16 лет.
       </b-form-invalid-feedback>
-      <b-form-valid-feedback :state="validationExperience">
+      <b-form-valid-feedback id="validation" :state="validationExperience">
         Такой опыт подходит.
       </b-form-valid-feedback>
 
-      <b-form-invalid-feedback :state="validationCategory">
+      <b-form-invalid-feedback id="validation" :state="validationCategory">
         Категория не должна быть пуста.
       </b-form-invalid-feedback>
-      <b-form-valid-feedback :state="validationCategory">
+      <b-form-valid-feedback id="validation" :state="validationCategory">
         Такая категория подходит.
       </b-form-valid-feedback>
 
@@ -444,5 +444,8 @@ export default {
   width: 75vh;
 }
 
+#validation {
+
+}
 
 </style>
