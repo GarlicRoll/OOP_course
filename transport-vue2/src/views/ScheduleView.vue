@@ -4,6 +4,7 @@
 
     <div class="layouts">
       <vue-good-table
+          @on-selected-rows-change="showExtraRows"
           id="table"
           ref="my-table"
 
@@ -97,10 +98,78 @@
         </div>
 
       </vue-good-table>
+      <vue-good-table
+          id = "tableExtra"
+          :columns="columnsExtra"
+                      :rows="extraTable"
+                      :select-options="{
+                         selectionText: '',
+            clearSelectionText: '',
+            enabled: false,}"
+      >
+
+        <div slot="selected-row-actions">
+          <button  @click="showSelectedRows">Показать все</button>
+        </div>
+        <template slot="table-row" slot-scope="props">
+
+
+
+          <span v-if="props.column.field == 'violations'">
+                     <b-card
+                         title=""
+                         tag="article"
+                         style="max-width: 70rem"
+                         class="mb-2"
+                     >
+                      <b-card-text>
+                        <li v-for="violation in props.row.violations" v-bind:key="violation.id">
+                            {{ violation }}
+                         </li>
+                      </b-card-text>
+
+                    </b-card>
+            </span>
+
+          <span v-else-if="props.column.field == 'buses'">
+                     <b-card
+                         title=""
+                         tag="article"
+                         style="max-width: 70rem"
+                         class="mb-2"
+                     >
+                      <b-card-text>
+                        <li v-for="bus in props.row.buses" v-bind:key="bus.id">
+                            {{
+                            "Номер: " + bus.id + " Номер автобуса: " + bus.number + " Начало: " + bus.start + " Конец: " + bus.end
+                          }}
+                            <div v-if="bus.driver != null">
+                            {{ "Имя водителя: " + bus.driver.name }}
+                              </div>
+                         </li>
+                      </b-card-text>
+
+                    </b-card>
+            </span>
+
+
+          <span v-else>
+                      {{ props.formattedRow[props.column.field] }}
+            </span>
+
+        </template>
+
+        <div slot="emptystate">
+          <div class="d-flex justify-content-center mb-3">
+            <h2>Выберите строчку в таблице сверху</h2>
+          </div>
+        </div>
+
+      </vue-good-table>
     </div>
 
     <div class="layouts">
-      <b-button variant="primary" @click="showForAdd">Добавить</b-button>
+      <b-button id="buttonMain" variant="primary" @click="showForAdd">Добавить</b-button>
       <p></p>
       <b-button pill variant="secondary" @click="getJSON">Выгрузить в формате .JSON</b-button>
       <b-button pill variant="secondary" @click="generatePDF">Выгрузить в формате .PDF</b-button>
@@ -216,6 +285,7 @@ export default {
   components: {MainLayout},
   data() {
     return {
+      extraTable : [],
       updateCheck: 0,
       id1: null,
       id2: null,
@@ -253,9 +323,29 @@ export default {
           field: 'before',
           sortable: false
         },
-      ],
-      routes: [],
 
+      ],
+      columnsExtra: [
+        {
+          label: 'Номер',
+          field: 'id',
+          type: 'number'
+        },
+        {
+          label: 'Номер маршрута',
+          field: 'number',
+          type: 'number',
+        },
+        {
+          label: 'Автобусы',
+          field: 'buses',
+        },
+        {
+          label: 'Нарушения',
+          field: 'violations',
+        },
+          ],
+      routes: [],
     }
   },
   created() {
@@ -504,15 +594,27 @@ export default {
       this.id1 = id1;
     },
     showSelectedRows() {
-
-      for (let i = 0; i <  this.$refs['my-table'].selectedRows.length; i++) {
-        console.log(i + " " + this.$refs['my-table'].selectedRows[i]);
-        this.$refs["my-table"]('getHiddenRows');
+      this.clean()
+      if (document.getElementById("table").style.display === "none") {
+        document.getElementById("table").style.display = "block"
+        document.getElementById("tableExtra").style.display = "none"
+        document.getElementById("buttonMain").style.display = "inline-block"
+      } else {
+        document.getElementById("tableExtra").style.display = "block"
+        document.getElementById("table").style.display = "none"
+        document.getElementById("buttonMain").style.display = "none"
       }
     },
     validationNumberFoo() {
       return this.number > 0
     },
+    showExtraRows() {
+      if (this.$refs['my-table'] === undefined) {
+        this.extraTable = []
+      } else {
+        this.extraTable = this.$refs['my-table'].selectedRows
+      }
+    }
   },
   computed: {
     validationNumber() {
@@ -546,6 +648,10 @@ export default {
 
 .formFile {
   width: 75vh;
+}
+
+#tableExtra {
+  display: none;
 }
 
 </style>
