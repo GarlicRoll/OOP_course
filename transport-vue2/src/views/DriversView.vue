@@ -399,7 +399,7 @@ export default {
       return category.length > 0
     },
     validationExperienceFoo(experience, age) {
-      return experience < (age - 16)
+      return experience < (age - 16) && experience >= 0
     },
   },
   computed: {
@@ -413,7 +413,7 @@ export default {
       return this.category.length > 0
     },
     validationExperience() {
-      return this.experience < (this.age - 16)
+      return this.experience < (this.age - 16) && this.experience >= 0
     },
   }
 };

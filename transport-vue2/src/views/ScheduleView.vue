@@ -426,6 +426,7 @@ export default {
       this.showAlert("Удалено!")
     },
     addBus() {
+      let errAdd = false;
       if (this.busId != null) {
         if (this.id1 != null) {
           this.$http.get(url + "/bus/" + this.busId.toString())
@@ -435,9 +436,10 @@ export default {
                 this.$http.patch(url + "/route/addBusTo/" + this.id1.toString(),
                     bus
                 ).catch((e) => {
+                  errAdd = true;
+                  this.showAlert("Такой автобус уже есть!")
                   console.log(e.toString())
-                  this.alertText = "Ошибка!"
-                }).then(() => this.clean()).then(() => this.getData())
+                }).then(() => {this.getData(); if (!errAdd) {this.clean(); this.showAlert("Автобус добавлен!")}})
               }).catch(e => {
                 this.showAlert("Автобус не найден!")
             console.log(e)
@@ -451,6 +453,7 @@ export default {
     },
 
     removeBus() {
+      let errDel = false;
       if (this.busId != null) {
         if (this.id1 != null) {
           this.$http.get(url + "/bus/" + this.busId.toString())
@@ -460,9 +463,10 @@ export default {
                 this.$http.patch(url + "/route/removeBusFrom/" + this.id1.toString(),
                     bus
                 ).catch((e) => {
+                  errDel = true;
                   console.log(e.toString())
-                  this.alertText = "Ошибка!"
-                }).then(() => this.getData())
+                  this.showAlert("Автобус не найден!")
+                }).then(() => {this.getData(); if (errDel === false) {this.clean(); this.showAlert("Автобус удалён!")}})
               }).catch(e => {
             this.showAlert("Автобус не найден!")
             console.log(e)
@@ -582,6 +586,7 @@ export default {
       this.buses = this.routes[index].buses;
       this.violations = this.routes[index].violations;
       this.violation = "";
+      this.busId = null;
     },
     showForAdd() {
       this.updateCheck = 0;
@@ -592,6 +597,7 @@ export default {
       this.buses = null;
       this.violations = '';
       this.violation = "";
+      this.busId = null;
       document.getElementById("form").style.display = "block"
       document.getElementById("formUpdate").style.display = "none"
       document.getElementById("formAdd").style.display = "inline-block"

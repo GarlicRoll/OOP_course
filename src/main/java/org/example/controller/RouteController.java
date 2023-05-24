@@ -131,6 +131,8 @@ public class RouteController {
         Route route = null;
         Optional<Route> routeOptional = routeService.findRouteById(id);
         if (routeOptional.isPresent()) {
+
+            // Проверка на то, что добавляемый автобус уже есть в списке
             route = routeOptional.get();
             List<Bus> buses = route.getBuses();
             boolean alreadyThere = false;
@@ -141,7 +143,21 @@ public class RouteController {
                     break;
                 }
             }
-            if (!alreadyThere) {
+
+            // Проверка на то, что добавляемый автобус уже есть у другого маршрута
+            List<Route> allRoutes = routeService.findAllRoutes();
+            boolean alreadySomewhere = false;
+            for (Route routeExtra: allRoutes) {
+                for (Bus busExtra: routeExtra.getBuses()) {
+                    if (busExtra.getId() == bus.getId()) {
+                        alreadySomewhere = true;
+                        code = 409;
+                        break;
+                    }
+                }
+            }
+
+            if (!alreadyThere && !alreadySomewhere) {
                 buses.add(bus);
             }
             route.setBuses(buses);

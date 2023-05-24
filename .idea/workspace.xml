@@ -6,12 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e1d545a4-aebc-4c27-85fd-64878785bee5" name="Changes" comment="Связи переделаны на агрегацию (например при удалении автобуса маршрут и водитель не удаляется)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/BusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/BusController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Bus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Bus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Driver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/BusService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/BusService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/impl/BusServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/impl/BusServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/impl/DriverServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/impl/DriverServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/RouteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/RouteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/DriversView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/DriversView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/ScheduleView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/ScheduleView.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,7 +216,7 @@
       <workItem from="1683886121873" duration="10402000" />
       <workItem from="1684084702875" duration="4467000" />
       <workItem from="1684764791894" duration="17765000" />
-      <workItem from="1684827967536" duration="52917000" />
+      <workItem from="1684827967536" duration="55551000" />
     </task>
     <task id="LOCAL-00001" summary="Добавлены связи между таблицами рабочие + немного улучшен визуал">
       <created>1683155302311</created>
@@ -319,7 +316,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684958078268</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Связи переделаны на агрегацию (например при удалении автобуса маршрут и водитель не удаляется)">
+      <created>1684965757094</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1684965757094</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
