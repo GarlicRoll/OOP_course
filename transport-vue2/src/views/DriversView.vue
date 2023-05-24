@@ -18,6 +18,12 @@
                   </span>
       </template>
 
+      <div slot="emptystate">
+        <div class="d-flex justify-content-center mb-3">
+          <b-spinner label="Loading..."></b-spinner>
+        </div>
+      </div>
+
     </vue-good-table>
       </div>
 
@@ -42,7 +48,8 @@
       <b-button pill variant="secondary" @click="generatePDF">Выгрузить в формате .PDF</b-button>
     </div>
 
-    <b-form inline class="layouts" id="form">
+    <b-form  inline class="layouts" id="form">
+
       <label class="sr-only" for="inline-form-input-name">Name</label>
 
       <b-form-input readonly
@@ -84,6 +91,35 @@
       <b-button variant="primary" id="formAdd" @click="addDriver">Сохранить</b-button>
 
         <b-button pill variant="danger" @click="clean">Закрыть</b-button>
+
+      <b-form-invalid-feedback :state="validationName">
+        Имя должно быть длиннее 3 символов и не являться цифрой.
+      </b-form-invalid-feedback>
+      <b-form-valid-feedback :state="validationName">
+        Такое имя подходит.
+      </b-form-valid-feedback>
+
+      <b-form-invalid-feedback :state="validationAge">
+      Возраст должен быть от 16 до 99.
+      </b-form-invalid-feedback>
+      <b-form-valid-feedback :state="validationAge">
+        Такой возраст подходит.
+      </b-form-valid-feedback>
+
+      <b-form-invalid-feedback :state="validationExperience">
+        Опыт должен быть меньше возраста минимум на 16 лет.
+      </b-form-invalid-feedback>
+      <b-form-valid-feedback :state="validationExperience">
+        Такой опыт подходит.
+      </b-form-valid-feedback>
+
+      <b-form-invalid-feedback :state="validationCategory">
+        Категория не должна быть пуста.
+      </b-form-invalid-feedback>
+      <b-form-valid-feedback :state="validationCategory">
+        Такая категория подходит.
+      </b-form-valid-feedback>
+
     </b-form>
     <div class="layouts">
     <b-alert class="layouts"
@@ -127,6 +163,7 @@ export default {
   components: {MainLayout},
   data() {
     return {
+      conditionsDone: false,
       file: null,
       dismissSecs: 3,
       dismissCountDown: 0,
@@ -236,18 +273,32 @@ export default {
       this.dismissCountDown = this.dismissSecs
     },
     addDriver() {
-      this.createData()
-      this.clean()
-      this.showAlert("Добавлено!")
+      if (this.validationNameFoo() &&
+      this.validationAgeFoo() &&
+      this.validationExperienceFoo() &&
+      this.validationCategoryFoo()) {
+        this.createData()
+        this.clean()
+        this.showAlert("Добавлено!")
+      } else {
+        this.showAlert("Некорректный ввод!")
+      }
     },
     deleteDriver() {
       this.deleteData()
       this.showAlert("Удалено!")
     },
     updateDriver() {
-      this.updateData()
-      this.clean()
-      this.showAlert("Обновлено!")
+      if (this.validationNameFoo() &&
+          this.validationAgeFoo() &&
+          this.validationExperienceFoo() &&
+          this.validationCategoryFoo()) {
+          this.updateData()
+          this.clean()
+          this.showAlert("Обновлено!")
+      } else {
+        this.showAlert("Некорректный ввод!")
+      }
     },
     getJSON() {
       var fileDownload = require('js-file-download');
@@ -323,8 +374,35 @@ export default {
     },
     setId(id) {
       this.id = id;
-    }
+    },
+    validationNameFoo() {
+      return this.name.length > 3 && isNaN(this.name)
+    },
+    validationAgeFoo() {
+      return this.age > 15 && this.age < 100
+    },
+    validationCategoryFoo() {
+      return this.category.length > 0
+    },
+    validationExperienceFoo() {
+      return this.experience < (this.age - 16)
+    },
+
   },
+  computed: {
+    validationName() {
+      return this.name.length > 3 && isNaN(this.name)
+    },
+    validationAge() {
+      return this.age > 15 && this.age < 100
+    },
+    validationCategory() {
+      return this.category.length > 0
+    },
+    validationExperience() {
+      return this.experience < (this.age - 16)
+    },
+  }
 };
 </script>
 

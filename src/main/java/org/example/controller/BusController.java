@@ -78,7 +78,23 @@ public class BusController {
 
         // Проверка того, прикреплён ли водитель к какому-либо ещё автобусу
         boolean alreadyExists = false;
-
+        if (bus.getStart() < 0) {
+            bus.setStart(0);
+        }
+        if (bus.getStart() > 23) {
+            bus.setStart(23);
+        }
+        if (bus.getEnd() < 0) {
+            bus.setEnd(0);
+        }
+        if (bus.getEnd() > 23) {
+            bus.setEnd(23);
+        }
+        if (bus.getEnd() < bus.getStart()) {
+            int start = bus.getStart();
+            bus.setStart(bus.getEnd());
+            bus.setEnd(start);
+        }
         if (bus.getDriver() != null) {
             for (Bus value : buses) {
                 if (value.getDriver() != null && (value.getDriver().getId() == bus.getDriver().getId())) {
@@ -132,6 +148,24 @@ public class BusController {
         // Проверка того, прикреплён ли водитель к какому-либо ещё автобусу
         boolean alreadyExists = false;
 
+        if (bus.getStart() < 0) {
+            bus.setStart(0);
+        }
+        if (bus.getStart() > 23) {
+            bus.setStart(23);
+        }
+        if (bus.getEnd() < 0) {
+            bus.setEnd(0);
+        }
+        if (bus.getEnd() > 23) {
+            bus.setEnd(23);
+        }
+        if (bus.getEnd() < bus.getStart()) {
+            int start = bus.getStart();
+            bus.setStart(bus.getEnd());
+            bus.setEnd(start);
+        }
+
         if (bus.getDriver() != null) {
             for (Bus value : buses) {
                 if (value.getDriver() != null && (value.getDriver().getId() == bus.getDriver().getId())) {
@@ -164,6 +198,8 @@ public class BusController {
     public ResponseEntity<Integer> delete(@PathVariable int id) {
 
         busService.findBusById(id);
+
+        busService.clearDriver(id);
 
         busService.deleteBus(id);
 

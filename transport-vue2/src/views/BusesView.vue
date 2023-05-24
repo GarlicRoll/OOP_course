@@ -17,6 +17,12 @@
                   </span>
         </template>
 
+        <div slot="emptystate">
+          <div class="d-flex justify-content-center mb-3">
+            <b-spinner label="Loading..."></b-spinner>
+          </div>
+        </div>
+
       </vue-good-table>
     </div>
 

@@ -1,6 +1,6 @@
 <template>
       <b-navbar toggleable="lg" type="dark" variant="info" v-bind:sticky="true">
-        <b-navbar-brand href="/about">Транспортная система</b-navbar-brand>
+        <b-navbar-brand href="/">Транспортная система</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 

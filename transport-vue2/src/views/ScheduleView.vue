@@ -1,24 +1,52 @@
 <template>
-    <div class="background">
-        <main-layout></main-layout>
-        <div class="layouts">
-        <vue-good-table
-                :columns="columns"
-                :rows="routes"
-                class="table">
+  <div class="background">
+    <main-layout></main-layout>
 
-          <template slot="table-row" slot-scope="props">
+    <div class="layouts">
+      <vue-good-table
+          id="table"
+          ref="my-table"
+
+          :columns="columns"
+          :rows="routes"
+
+          :pagination-options="{
+            enabled: true,
+            perPageDropdown: [3, 5, 10],
+            rowsPerPageLabel: 'Строк на страницу',
+            nextLabel: 'След.',
+            prevLabel: 'Пред.',
+            ofLabel: 'из',}"
+
+          :select-options="{
+            selectionText: 'выделено',
+            clearSelectionText: 'Очистить',
+            enabled: true,}"
+
+          :search-options="{
+            enabled: true,
+            placeholder: 'Поиск по номеру и номеру маршрута',
+      }">
+        <div slot="selected-row-actions">
+          <button  @click="showSelectedRows">Показать только выделенные</button>
+        </div>
+
+        class="table">
+
+
+        <template slot="table-row" slot-scope="props">
                   <span v-if="props.column.field == 'before'">
                      <b-button-group>
                     <b-button squared variant="primary" @click="show(props.row.id)">Изменить</b-button>
-                    <b-button squared variant="danger" @click="setId(props.row.id)" v-b-modal.modal-delete-route>Удалить</b-button>
+                    <b-button squared variant="danger" @click="setId(props.row.id)"
+                              v-b-modal.modal-delete-route>Удалить</b-button>
 
-                    <b-button variant="danger"  @click="setId(props.row.id)" v-b-modal.modal-remove-violations>Очистить графу нарушений</b-button>
+                    <b-button variant="danger" @click="setId(props.row.id)" v-b-modal.modal-remove-violations>Очистить графу нарушений</b-button>
                        </b-button-group>
                   </span>
 
 
-            <span v-else-if="props.column.field == 'violations'">
+          <span v-else-if="props.column.field == 'violations'">
                      <b-card
                          title=""
                          tag="article"
@@ -34,7 +62,7 @@
                     </b-card>
             </span>
 
-            <span v-else-if="props.column.field == 'buses'">
+          <span v-else-if="props.column.field == 'buses'">
                      <b-card
                          title=""
                          tag="article"
@@ -43,7 +71,9 @@
                      >
                       <b-card-text>
                         <li v-for="bus in props.row.buses" v-bind:key="bus.id">
-                            {{ "Номер: "  + bus.id + " Номер автобуса: " + bus.number + " Начало: " + bus.start + " Конец: " + bus.end }}
+                            {{
+                            "Номер: " + bus.id + " Номер автобуса: " + bus.number + " Начало: " + bus.start + " Конец: " + bus.end
+                          }}
                             <div v-if="bus.driver != null">
                             {{ "Имя водителя: " + bus.driver.name }}
                               </div>
@@ -54,47 +84,52 @@
             </span>
 
 
-
-            <span v-else>
-                      {{props.formattedRow[props.column.field]}}
+          <span v-else>
+                      {{ props.formattedRow[props.column.field] }}
             </span>
 
-          </template>
+        </template>
 
-        </vue-good-table>
+        <div slot="emptystate">
+          <div class="d-flex justify-content-center mb-3">
+            <b-spinner label="Loading..."></b-spinner>
+          </div>
         </div>
 
-      <div class="layouts">
-        <b-button variant="primary" @click="showForAdd">Добавить</b-button>
-        <p></p>
-        <b-button pill variant="secondary" @click="getJSON">Выгрузить в формате .JSON</b-button>
-        <b-button pill variant="secondary" @click="generatePDF">Выгрузить в формате .PDF</b-button>
-      </div>
+      </vue-good-table>
+    </div>
+
+    <div class="layouts">
+      <b-button variant="primary" @click="showForAdd">Добавить</b-button>
+      <p></p>
+      <b-button pill variant="secondary" @click="getJSON">Выгрузить в формате .JSON</b-button>
+      <b-button pill variant="secondary" @click="generatePDF">Выгрузить в формате .PDF</b-button>
+    </div>
 
 
-      <b-form inline class="layouts" id="form">
-        <label class="sr-only" for="inline-form-input-name">Name</label>
+    <b-form inline class="layouts" id="form">
+      <label class="sr-only" for="inline-form-input-name">Name</label>
 
-        <b-form-input readonly
-            v-model="id1"
-            id="inline-form-input-name"
-            class="mb-2 mr-sm-2 mb-sm-0"
-            placeholder="Номер"
-        ></b-form-input>
+      <b-form-input readonly
+                    v-model="id1"
+                    id="inline-form-input-name"
+                    class="mb-2 mr-sm-2 mb-sm-0"
+                    placeholder="Номер"
+      ></b-form-input>
 
-        <b-form-input
-            v-model="number"
-            id="inline-form-input-name"
-            class="mb-2 mr-sm-2 mb-sm-0"
-            placeholder="Номер маршрута"
-        ></b-form-input>
+      <b-form-input
+          v-model="number"
+          id="inline-form-input-name"
+          class="mb-2 mr-sm-2 mb-sm-0"
+          placeholder="Номер маршрута"
+      ></b-form-input>
 
-        <b-button variant="primary" id="formUpdate" @click="updateRoute">Сохранить</b-button>
+      <b-button variant="primary" id="formUpdate" @click="updateRoute">Сохранить</b-button>
 
-        <b-button variant="primary" id="formAdd" @click="addRoute">Сохранить</b-button>
+      <b-button variant="primary" id="formAdd" @click="addRoute">Сохранить</b-button>
 
-        <p></p>
-        <div v-if="updateCheck == 1">
+      <p></p>
+      <div v-if="updateCheck == 1">
         <b-form-input
             v-model="busId"
             id="inline-form-input-name"
@@ -103,8 +138,8 @@
 
         ></b-form-input>
 
-        <b-button  variant="primary" @click="addBus">Добавить</b-button>
-        <b-button  variant="danger" @click="removeBus">Удалить</b-button>
+        <b-button variant="primary" @click="addBus">Добавить</b-button>
+        <b-button variant="danger" @click="removeBus">Удалить</b-button>
         <p></p>
 
         <b-form-input
@@ -117,48 +152,47 @@
 
         <b-button variant="primary" @click="addViolation">Добавить</b-button>
         <p></p>
-        </div>
-        <b-button pill variant="danger" @click="clean">Закрыть</b-button>
-
-      </b-form>
-
-
-
-      <div class="layouts">
-        <b-alert
-            :show="dismissCountDown"
-            dismissible
-            variant="success"
-            @dismissed="dismissCountDown=0"
-            @dismiss-count-down="countDownChanged"
-        >
-          <p>{{ alertText }} {{ dismissCountDown }} </p>
-          <b-progress
-              variant="success"
-              :max="dismissSecs"
-              :value="dismissCountDown"
-              height="4px"
-          ></b-progress>
-        </b-alert>
       </div>
+      <b-button pill variant="danger" @click="clean">Закрыть</b-button>
 
-      <b-modal
-          id="modal-remove-violations"
-          ref="modal"
-          title="Подтвердите очистку графы нарушений"
-          @ok="removeViolation"
-      >
-        Очистить графу нарушений?
-      </b-modal>
+    </b-form>
 
-      <b-modal
-          id="modal-delete-route"
-          ref="modal"
-          title="Подтвердите удаление маршрута"
-          @ok="deleteRoute"
+
+    <div class="layouts">
+      <b-alert
+          :show="dismissCountDown"
+          dismissible
+          variant="success"
+          @dismissed="dismissCountDown=0"
+          @dismiss-count-down="countDownChanged"
       >
-        Удалить маршрут?
-      </b-modal>
+        <p>{{ alertText }} {{ dismissCountDown }} </p>
+        <b-progress
+            variant="success"
+            :max="dismissSecs"
+            :value="dismissCountDown"
+            height="4px"
+        ></b-progress>
+      </b-alert>
+    </div>
+
+    <b-modal
+        id="modal-remove-violations"
+        ref="modal"
+        title="Подтвердите очистку графы нарушений"
+        @ok="removeViolation"
+    >
+      Очистить графу нарушений?
+    </b-modal>
+
+    <b-modal
+        id="modal-delete-route"
+        ref="modal"
+        title="Подтвердите удаление маршрута"
+        @ok="deleteRoute"
+    >
+      Удалить маршрут?
+    </b-modal>
 
   </div>
 </template>
@@ -169,20 +203,21 @@ import MainLayout from "@/layouts/MainLayout.vue";
 import {url} from "@/main";
 import jsPDF from "jspdf";
 import font from "@/Comic Sans MS-normal";
+
 export default {
   name: 'ScheduleView',
   components: {MainLayout},
-  data(){
+  data() {
     return {
-      updateCheck : 0,
-      id1 : null,
-      id2 : null,
-      id3 : null,
-      number : null,
-      buses : null,
-      violations : '',
-      busId : null,
-      violation : '',
+      updateCheck: 0,
+      id1: null,
+      id2: null,
+      id3: null,
+      number: null,
+      buses: null,
+      violations: '',
+      busId: null,
+      violation: '',
       dismissSecs: 3,
       dismissCountDown: 0,
       showDismissibleAlert: false,
@@ -212,12 +247,12 @@ export default {
           sortable: false
         },
       ],
-      routes : [],
+      routes: [],
 
     }
   },
   created() {
-      this.getData()
+    this.getData()
   },
   methods: {
     getData() {
@@ -249,9 +284,9 @@ export default {
     updateData() {
       this.$http.patch(url + "/route/" + this.id1.toString(), {
             id: this.id1,
-        number: this.number,
-        buses: [],
-        violations: [],
+            number: this.number,
+            buses: [],
+            violations: [],
           }
       ).catch((e) => {
         console.log(e.toString())
@@ -407,7 +442,7 @@ export default {
       this.showAlert("Скачано!")
     },
     getIndex(list, id) {
-      for (let i = 0; i < list.length; i++ ) {
+      for (let i = 0; i < list.length; i++) {
         if (list[i].id === id) {
           return i;
         }
@@ -450,8 +485,14 @@ export default {
     },
     setId(id1) {
       this.id1 = id1;
-    }
+    },
+    showSelectedRows() {
 
+      for (let i = 0; i <  this.$refs['my-table'].selectedRows.length; i++) {
+        console.log(i + " " + this.$refs['my-table'].selectedRows[i]);
+        this.$refs["my-table"]('getHiddenRows');
+      }
+    },
   }
 }
 </script>

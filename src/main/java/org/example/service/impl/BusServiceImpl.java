@@ -51,7 +51,7 @@ public class BusServiceImpl implements BusService {
     public void deleteBus(int id) {
         Optional<Bus> busOptional = busRepository.findById(id);
         Bus bus;
-
+        /*
         if (busOptional.isPresent()) {
             bus = busOptional.get();
             // Открепляем водителя, если он есть
@@ -60,6 +60,23 @@ public class BusServiceImpl implements BusService {
                 busRepository.save(bus);
             }
         }
+        */
         busRepository.deleteById(id);
+    }
+
+    @Override
+    public Bus clearDriver(int id) {
+        Optional<Bus> busOptional = busRepository.findById(id);
+        Bus bus = null;
+
+        if (busOptional.isPresent()) {
+            bus = busOptional.get();
+            // Открепляем водителя, если он есть
+            if (bus.getDriver() != null) {
+                bus.setDriver(null);
+                bus = busRepository.save(bus);
+            }
+        }
+        return bus;
     }
 }
