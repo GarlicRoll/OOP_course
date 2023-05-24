@@ -273,10 +273,10 @@ export default {
       this.dismissCountDown = this.dismissSecs
     },
     addDriver() {
-      if (this.validationNameFoo() &&
-      this.validationAgeFoo() &&
-      this.validationExperienceFoo() &&
-      this.validationCategoryFoo()) {
+      if (this.validationNameFoo(this.name) &&
+          this.validationAgeFoo(this.age) &&
+          this.validationExperienceFoo(this.experience, this.age) &&
+          this.validationCategoryFoo(this.category)) {
         this.createData()
         this.clean()
         this.showAlert("Добавлено!")
@@ -289,10 +289,10 @@ export default {
       this.showAlert("Удалено!")
     },
     updateDriver() {
-      if (this.validationNameFoo() &&
-          this.validationAgeFoo() &&
-          this.validationExperienceFoo() &&
-          this.validationCategoryFoo()) {
+      if (this.validationNameFoo(this.name) &&
+          this.validationAgeFoo(this.age) &&
+          this.validationExperienceFoo(this.experience, this.age) &&
+          this.validationCategoryFoo(this.category)) {
           this.updateData()
           this.clean()
           this.showAlert("Обновлено!")
@@ -308,14 +308,28 @@ export default {
     addJSON() {
       let reader = new FileReader()
       reader.readAsText(this.file)
-
+      let msgTxt = "Загружено";
+      let ok = true;
       reader.onload = () => {
         let data = JSON.parse(reader.result)
-        this.$http.post(url + "/driver/list", data).catch(() => {
-          this.alertText = "Ошибка!"
-        }).then(() => this.getData())
+        for (let i = 0; i < data.length; i++) {
+          if ((this.validationAgeFoo(data[i].age) &&
+          this.validationNameFoo(data[i].name) &&
+          this.validationCategoryFoo(data[i].category) &&
+          this.validationExperienceFoo(data[i].experience, data[i].age)) === false) {
+              ok = false;
+              msgTxt = "Данные не были загружены, так как являлись некорректными!";
+              break;
+          }
+        }
+        if (ok) {
+          this.$http.post(url + "/driver/list", data).catch(() => {
+            this.alertText = "Ошибка!"
+          }).then(() => this.getData())
+
+        }
+        this.showAlert(msgTxt)
       }
-      this.showAlert("Загружено!")
     },
     generatePDF() {
       const pdf = new jsPDF()
@@ -375,19 +389,18 @@ export default {
     setId(id) {
       this.id = id;
     },
-    validationNameFoo() {
-      return this.name.length > 3 && isNaN(this.name)
+    validationNameFoo(name) {
+      return name.length > 3 && isNaN(name)
     },
-    validationAgeFoo() {
-      return this.age > 15 && this.age < 100
+    validationAgeFoo(age) {
+      return age > 15 && age < 100
     },
-    validationCategoryFoo() {
-      return this.category.length > 0
+    validationCategoryFoo(category) {
+      return category.length > 0
     },
-    validationExperienceFoo() {
-      return this.experience < (this.age - 16)
+    validationExperienceFoo(experience, age) {
+      return experience < (age - 16)
     },
-
   },
   computed: {
     validationName() {

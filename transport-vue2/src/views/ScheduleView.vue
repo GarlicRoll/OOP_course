@@ -155,6 +155,13 @@
       </div>
       <b-button pill variant="danger" @click="clean">Закрыть</b-button>
 
+      <b-form-invalid-feedback :state="validationNumber">
+        Номер маршрута должен быть цифрой больше 0.
+      </b-form-invalid-feedback>
+      <b-form-valid-feedback :state="validationNumber">
+        Такой номер маршрута подходит.
+      </b-form-valid-feedback>
+
     </b-form>
 
 
@@ -307,14 +314,22 @@ export default {
       this.dismissCountDown = this.dismissSecs
     },
     addRoute() {
-      this.createData()
-      this.clean()
-      this.showAlert("Добавлено!")
+      if (this.validationNumberFoo()) {
+        this.createData()
+        this.clean()
+        this.showAlert("Добавлено!")
+      } else {
+        this.showAlert("Некорректный ввод!")
+      }
 
     },
     updateRoute() {
-      this.updateData()
-      this.showAlert("Обновлено!")
+      if (this.validationNumberFoo()) {
+        this.updateData()
+        this.showAlert("Обновлено!")
+      } else {
+        this.showAlert("Некорректный ввод!")
+      }
     },
     deleteRoute() {
       this.deleteData()
@@ -334,6 +349,7 @@ export default {
                   this.alertText = "Ошибка!"
                 }).then(() => this.clean()).then(() => this.getData())
               }).catch(e => {
+                this.showAlert("Автобус не найден!")
             console.log(e)
           })
         } else {
@@ -358,6 +374,7 @@ export default {
                   this.alertText = "Ошибка!"
                 }).then(() => this.getData())
               }).catch(e => {
+            this.showAlert("Автобус не найден!")
             console.log(e)
           })
         } else {
@@ -493,7 +510,15 @@ export default {
         this.$refs["my-table"]('getHiddenRows');
       }
     },
-  }
+    validationNumberFoo() {
+      return this.number > 0
+    },
+  },
+  computed: {
+    validationNumber() {
+      return this.number > 0
+    },
+  },
 }
 </script>
 

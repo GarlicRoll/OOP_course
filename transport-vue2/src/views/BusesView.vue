@@ -80,6 +80,29 @@
       <b-button variant="primary" id="formAdd" @click="addBus">Сохранить</b-button>
 
       <b-button pill variant="danger" @click="clean">Закрыть</b-button>
+
+      <b-form-invalid-feedback :state="validationNumber">
+        Номер автобуса должен быть цифрой больше 0.
+      </b-form-invalid-feedback>
+      <b-form-valid-feedback :state="validationNumber">
+        Такой номер автобуса подходит.
+      </b-form-valid-feedback>
+
+      <b-form-invalid-feedback :state="validationStart">
+        Время старта должно быть от 0 до 23.
+      </b-form-invalid-feedback>
+      <b-form-valid-feedback :state="validationStart">
+        Такое время старта подходит.
+      </b-form-valid-feedback>
+
+      <b-form-invalid-feedback :state="validationEnd">
+        Время окончания должно быть от 0 до 23.
+      </b-form-invalid-feedback>
+      <b-form-valid-feedback :state="validationEnd">
+        Такое время оончания подходит.
+      </b-form-valid-feedback>
+
+
     </b-form>
 
     <div class="layouts">
@@ -243,6 +266,7 @@ export default {
                   }).then(() => this.clean()).then(() => this.getData())
                 }
             ).catch(e => {
+          this.alertText = "Водитель не найден!"
           console.log(e)
         }).then(() => {
 
@@ -286,13 +310,24 @@ export default {
       this.dismissCountDown = this.dismissSecs
     },
     addBus() {
+      if (this.validationNumberFoo() &&
+          this.validationStartFoo() &&
+          this.validationEndFoo()) {
       this.createData()
       this.showAlert("Добавлено!")
-
+      } else {
+        this.showAlert("Некорректный ввод!")
+      }
     },
     updateBus() {
+      if (this.validationNumberFoo() &&
+          this.validationStartFoo() &&
+          this.validationEndFoo()) {
       this.updateData()
       this.showAlert("Обновлено!")
+      } else {
+        this.showAlert("Некорректный ввод!")
+      }
     },
     deleteBus() {
       this.deleteData()
@@ -385,7 +420,27 @@ export default {
     },
     setId(id) {
       this.id = id;
-    }
+    },
+    validationNumberFoo() {
+      return this.number > 0
+    },
+    validationStartFoo() {
+      return this.start >= 0 && this.start <= 23
+    },
+    validationEndFoo() {
+      return this.end >= 0 && this.end <= 23
+    },
+  },
+  computed: {
+    validationNumber() {
+      return this.number > 0
+    },
+    validationStart() {
+      return this.start >= 0 && this.start <= 23
+    },
+    validationEnd() {
+      return this.end >= 0 && this.end <= 23
+    },
   }
 }
 </script>
