@@ -504,8 +504,19 @@ export default {
     },
 
     getJSON() {
+      let rows = [];
+      if (this.extraTable.length !== 0) {
+        rows =  JSON.parse(JSON.stringify(this.extraTable))
+        for (let i = 0; i < rows.length; i++) {
+          delete rows[i]["vgt_id"];
+          delete rows[i]["originalIndex"];
+          delete rows[i]["vgtSelected"];
+        }
+      } else {
+        rows = this.routes;
+      }
       var fileDownload = require('js-file-download');
-      fileDownload(JSON.stringify(this.routes), 'routes.json');
+      fileDownload(JSON.stringify(rows), 'routes.json');
       this.showAlert("Скачано!")
     },
     addJSON() {
@@ -532,14 +543,19 @@ export default {
       pdf.setFont("MyFont");
 
       let text = "Маршруты\n";
-
-      for (let i = 0; i < this.routes.length; i++) {
+      let columns = [];
+      if (this.extraTable.length !== 0) {
+        columns = this.extraTable;
+      } else {
+        columns = this.routes;
+      }
+      for (let i = 0; i < columns.length; i++) {
         let violationsText = "";
-        for (let j = 0; j < this.routes[i].violations.length; j++) {
-          violationsText += "\n    -" + this.routes[i].violations[j];
+        for (let j = 0; j < columns[i].violations.length; j++) {
+          violationsText += "\n    -" + columns[i].violations[j];
         }
-        text += this.routes[i].id + ") Номер автобуса: " + this.routes[i].number + ". Кол-во автобусов: " +
-            this.routes[i].buses.length + " . Кол-во нарушений: " + this.routes[i].violations.length + ".\n";
+        text += columns[i].id + ") Номер автобуса: " + columns[i].number + ". Кол-во автобусов: " +
+            columns[i].buses.length + " . Кол-во нарушений: " + columns[i].violations.length + ".\n";
         if (violationsText !== "") {
           text += "Нарушения: " + violationsText + "\n";
         }
