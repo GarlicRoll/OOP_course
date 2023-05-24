@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1d545a4-aebc-4c27-85fd-64878785bee5" name="Changes" comment="Показ тольо нескольких маршрутов">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="e1d545a4-aebc-4c27-85fd-64878785bee5" name="Changes" comment="Связи переделаны на агрегацию (например при удалении автобуса маршрут и водитель не удаляется)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/ScheduleView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/ScheduleView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/BusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/BusController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Bus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Bus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Driver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/BusService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/BusService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/impl/BusServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/impl/BusServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/impl/DriverServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/impl/DriverServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +61,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "spring.configuration.checksum": "89daeefeb373ccbfaf54ce642222d999",
     "vue.rearranger.settings.migration": "true"
   },
@@ -214,7 +219,7 @@
       <workItem from="1683886121873" duration="10402000" />
       <workItem from="1684084702875" duration="4467000" />
       <workItem from="1684764791894" duration="17765000" />
-      <workItem from="1684827967536" duration="45946000" />
+      <workItem from="1684827967536" duration="52917000" />
     </task>
     <task id="LOCAL-00001" summary="Добавлены связи между таблицами рабочие + немного улучшен визуал">
       <created>1683155302311</created>
@@ -307,7 +312,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684931616043</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Выгрузка pdf и json по выделенным маршрутам">
+      <created>1684958078268</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1684958078268</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -338,6 +350,8 @@
     <MESSAGE value="Валидация ввода водителей + поиск по таблице маршрутов" />
     <MESSAGE value="Валидация ввода везде" />
     <MESSAGE value="Показ тольо нескольких маршрутов" />
-    <option name="LAST_COMMIT_MESSAGE" value="Показ тольо нескольких маршрутов" />
+    <MESSAGE value="Выгрузка pdf и json по выделенным маршрутам" />
+    <MESSAGE value="Связи переделаны на агрегацию (например при удалении автобуса маршрут и водитель не удаляется)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Связи переделаны на агрегацию (например при удалении автобуса маршрут и водитель не удаляется)" />
   </component>
 </project>

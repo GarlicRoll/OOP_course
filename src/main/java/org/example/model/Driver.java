@@ -140,23 +140,23 @@ public class Driver {
         return "Id: " + this.id + " Name: " + this.name + " Age: " + this.age + " Category: " + this.category;
     }
 
-    /*
+
     /**
      * Функция получения значения поля {@link Driver#bus}
      *
      * @return возвращает автобус водителя
-
+    */
+    /*
     public Bus getBus() {
         return bus;
     }
     */
 
-    /*
     /**
      * Функция установки значения поля {@link Driver#bus}
-
+     */
     public void setBus(Bus bus) {
         this.bus = bus;
     }
-    */
+
 }

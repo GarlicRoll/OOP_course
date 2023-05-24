@@ -57,16 +57,23 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public void deleteDriver(int id) {
         List<Bus> buses = busRepository.findAll();
+        Optional<Driver> driverOptional = driverRepository.findById(id);
+        Driver driver;
+        if (driverOptional.isPresent()) {
+            driver = driverOptional.get();
 
-        for (Bus bus : buses) {
-            if (bus.getDriver() != null) {
-                if (bus.getDriver().getId() == id) {
-                    bus.setDriver(null);
-                    busRepository.save(bus);
-                    break;
+            for (Bus bus : buses) {
+                if (bus.getDriver() != null) {
+                    if (bus.getDriver().getId() == id) {
+                        bus.setDriver(null);
+                        driver.setBus(null);
+                        driverRepository.save(driver);
+                        busRepository.save(bus);
+                        break;
+                    }
                 }
             }
         }
-        driverRepository.deleteById(id);
+            driverRepository.deleteById(id);
     }
 }

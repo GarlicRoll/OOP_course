@@ -13,6 +13,5 @@ public interface BusService {
     List<Bus> saveBusList(List<Bus> buses);
     Bus updateBus(Bus bus);
     void deleteBus(int bus);
-    Bus clearDriver(int bus);
 
 }

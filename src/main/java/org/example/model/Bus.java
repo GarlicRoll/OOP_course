@@ -84,8 +84,6 @@ public final class Bus {
      *
      * @return возвращает водителя автобуса
      */
-    //@Column(name = "driver")
-
     public Driver getDriver() {
         return driver;
     }
