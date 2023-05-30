@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1d545a4-aebc-4c27-85fd-64878785bee5" name="Changes" comment="Убрана возможность поставить один и тот же автобус на разные маршруты">
+    <list default="true" id="e1d545a4-aebc-4c27-85fd-64878785bee5" name="Changes" comment="Добавлена обработка ошибки &quot;Графа нарушений и так пуста&quot;">
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/controller/BusControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/RouteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/RouteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/BusesView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/BusesView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport-vue2/src/layouts/MainLayout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/layouts/MainLayout.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/DriversView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/DriversView.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,6 +20,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -52,6 +53,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "last_opened_file_path": "D:/Programming/ParallelMultiplication",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -76,11 +79,33 @@
       <recent name="D:\Programming\OOP_course_v2\transport-vue2\src\views\img" />
       <recent name="D:\Programming\OOP_course_v2\transport-vue2\public\img" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="org.example.controller" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.BusControllerTest.saveBus_shouldCallService">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.example.Main" />
       <module name="employee-management" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BusControllerTest.saveBus_shouldCallService" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="employee-management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.controller" />
+      <option name="MAIN_CLASS_NAME" value="org.example.controller.BusControllerTest" />
+      <option name="METHOD_NAME" value="saveBus_shouldCallService" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -96,22 +121,6 @@
       <option name="PACKAGE_NAME" value="org.example.controller" />
       <option name="MAIN_CLASS_NAME" value="org.example.controller.DriverControllerTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DriverControllerTest.getDriver" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="employee-management" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.example.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.example.controller.DriverControllerTest" />
-      <option name="METHOD_NAME" value="getDriver" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -178,19 +187,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.BusControllerTest.saveBus_shouldCallService" />
       <item itemvalue="JUnit.DriverControllerTest" />
-      <item itemvalue="JUnit.DriverControllerTest.getDriver" />
       <item itemvalue="JUnit.DriverControllerTest.saveDriver" />
       <item itemvalue="JUnit.DriverServiceTest" />
       <item itemvalue="JUnit.DriverServiceTest.saveEvent_shouldCallRepository" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.DriverServiceTest" />
+        <item itemvalue="JUnit.BusControllerTest.saveBus_shouldCallService" />
         <item itemvalue="JUnit.DriverControllerTest" />
+        <item itemvalue="JUnit.DriverServiceTest" />
         <item itemvalue="JUnit.DriverServiceTest.saveEvent_shouldCallRepository" />
         <item itemvalue="JUnit.DriverControllerTest.saveDriver" />
-        <item itemvalue="JUnit.DriverControllerTest.getDriver" />
       </list>
     </recent_temporary>
   </component>
@@ -216,7 +225,9 @@
       <workItem from="1683886121873" duration="10402000" />
       <workItem from="1684084702875" duration="4467000" />
       <workItem from="1684764791894" duration="17765000" />
-      <workItem from="1684827967536" duration="57935000" />
+      <workItem from="1684827967536" duration="60086000" />
+      <workItem from="1685097773315" duration="2415000" />
+      <workItem from="1685440689844" duration="4289000" />
     </task>
     <task id="LOCAL-00001" summary="Добавлены связи между таблицами рабочие + немного улучшен визуал">
       <created>1683155302311</created>
@@ -330,7 +341,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684968462358</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Добавлена обработка ошибки &quot;Графа нарушений и так пуста&quot;">
+      <created>1684972301257</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1684972301257</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -364,6 +382,7 @@
     <MESSAGE value="Выгрузка pdf и json по выделенным маршрутам" />
     <MESSAGE value="Связи переделаны на агрегацию (например при удалении автобуса маршрут и водитель не удаляется)" />
     <MESSAGE value="Убрана возможность поставить один и тот же автобус на разные маршруты" />
-    <option name="LAST_COMMIT_MESSAGE" value="Убрана возможность поставить один и тот же автобус на разные маршруты" />
+    <MESSAGE value="Добавлена обработка ошибки &quot;Графа нарушений и так пуста&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлена обработка ошибки &quot;Графа нарушений и так пуста&quot;" />
   </component>
 </project>

@@ -114,7 +114,7 @@
       </b-form-valid-feedback>
 
       <b-form-invalid-feedback id="validation" :state="validationCategory">
-        Категория не должна быть пуста.
+        Категория D либо D1.
       </b-form-invalid-feedback>
       <b-form-valid-feedback id="validation" :state="validationCategory">
         Такая категория подходит.
@@ -390,13 +390,20 @@ export default {
       this.id = id;
     },
     validationNameFoo(name) {
-      return name.length > 3 && isNaN(name)
+      let ok = true
+      this.name.split("").forEach(n => {
+        if (!((n.toUpperCase().charCodeAt(0)) >= 65 && (n.toUpperCase().charCodeAt(0)) <= 90) && !((n.toUpperCase().charCodeAt(0)) >= 1040 && (n.toUpperCase().charCodeAt(0)) <= 1071)) {
+          ok = false;
+        }
+      })
+      return name.length > 3 && ok
     },
     validationAgeFoo(age) {
       return age > 15 && age < 100
     },
     validationCategoryFoo(category) {
-      return category.length > 0
+      return category === "D" || category === "D1"
+      //return category.length > 0 && isNaN(category)
     },
     validationExperienceFoo(experience, age) {
       return experience < (age - 16) && experience >= 0
@@ -404,13 +411,20 @@ export default {
   },
   computed: {
     validationName() {
-      return this.name.length > 3 && isNaN(this.name)
+      let ok = true
+      this.name.split("").forEach(n => {
+        if (!((n.toUpperCase().charCodeAt(0)) >= 65 && (n.toUpperCase().charCodeAt(0)) <= 90) && !((n.toUpperCase().charCodeAt(0)) >= 1040 && (n.toUpperCase().charCodeAt(0)) <= 1071)) {
+          ok = false;
+        }
+      })
+      return this.name.length > 3 && ok
     },
     validationAge() {
       return this.age > 15 && this.age < 100
     },
     validationCategory() {
-      return this.category.length > 0
+      return this.category === "D" || this.category === "D1"
+      //return this.category.length > 0 && isNaN(this.category)
     },
     validationExperience() {
       return this.experience < (this.age - 16) && this.experience >= 0

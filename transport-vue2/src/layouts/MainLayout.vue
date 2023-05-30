@@ -16,14 +16,7 @@
 
 
 
-            <b-nav-item-dropdown right>
-              <!-- Using 'button-content' slot -->
-              <template #button-content>
-                <em>Пользовтель</em>
-              </template>
-              <b-dropdown-item href="#">Профиль</b-dropdown-item>
-              <b-dropdown-item href="#">Выйти из аккаунта</b-dropdown-item>
-            </b-nav-item-dropdown>
+
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
