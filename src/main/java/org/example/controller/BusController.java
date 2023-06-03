@@ -78,6 +78,7 @@ public class BusController {
 
         // Проверка того, прикреплён ли водитель к какому-либо ещё автобусу
         boolean alreadyExists = false;
+        boolean alreadyExistsNumber = false;
         if (bus.getDriver() != null) {
             for (Bus value : buses) {
                 if (value.getDriver() != null && (value.getDriver().getId() == bus.getDriver().getId())) {
@@ -87,12 +88,24 @@ public class BusController {
             }
         }
 
+        for (Bus busExtra: buses) {
+            if (busExtra.getNumber() == bus.getNumber() && bus.getId() != busExtra.getId()) {
+                alreadyExistsNumber = true;
+                break;
+            }
+        }
+
         int statusCode = 201;
-        if (!alreadyExists) {
-            bus = busService.saveBus(bus);
-            Main.logger.log(Level.INFO, "201 OK Server. Post one bus. " + bus);
+        if (!alreadyExistsNumber) {
+            if (!alreadyExists) {
+                bus = busService.saveBus(bus);
+                Main.logger.log(Level.INFO, "201 OK Server. Post one bus. " + bus);
+            } else {
+                Main.logger.log(Level.INFO, "409 Server. Driver already connected to another bus. " + bus);
+                statusCode = 409;
+            }
         } else {
-            Main.logger.log(Level.INFO, "409 Server. Driver already connected to another bus. " + bus);
+            Main.logger.log(Level.INFO, "409 (1) Server. This number already exists. " + bus);
             statusCode = 409;
         }
 
@@ -130,7 +143,7 @@ public class BusController {
 
         // Проверка того, прикреплён ли водитель к какому-либо ещё автобусу
         boolean alreadyExists = false;
-
+        boolean alreadyExistsNumber = false;
         if (bus.getDriver() != null) {
             for (Bus value : buses) {
                 if (value.getDriver() != null && (value.getDriver().getId() == bus.getDriver().getId())) {
@@ -143,11 +156,24 @@ public class BusController {
         }
 
         int statusCode = 201;
-        if (!alreadyExists) {
-            bus = busService.saveBus(bus);
-            Main.logger.log(Level.INFO, "201 OK Server. Update one bus. " + bus);
+
+        for (Bus busExtra: buses) {
+            if (busExtra.getNumber() == bus.getNumber() && bus.getId() != busExtra.getId()) {
+                alreadyExistsNumber = true;
+                break;
+            }
+        }
+
+        if (!alreadyExistsNumber) {
+            if (!alreadyExists) {
+                bus = busService.saveBus(bus);
+                Main.logger.log(Level.INFO, "201 OK Server. Update one bus. " + bus);
+            } else {
+                Main.logger.log(Level.INFO, "409 Server. Driver already connected to another bus. " + bus);
+                statusCode = 409;
+            }
         } else {
-            Main.logger.log(Level.INFO, "409 Server. Driver already connected to another bus. " + bus);
+            Main.logger.log(Level.INFO, "409 (1) Server. This number already exists. " + bus);
             statusCode = 409;
         }
 

@@ -374,9 +374,9 @@ export default {
         number: this.number,
         buses: null,
         violations: null,
-      }).catch(() => {
+      }).then(() => this.clean()).then(() => this.getData()).catch(() => {
         this.alertText = "Такой номер маршрута уже существует!"
-      }).then(() => this.getData())
+      })
     },
     updateData() {
       this.$http.patch(url + "/route/" + this.id1.toString(), {
@@ -385,10 +385,10 @@ export default {
             buses: [],
             violations: [],
           }
-      ).catch((e) => {
+      ).then(() => this.clean()).then(() => this.getData()).catch((e) => {
         console.log(e.toString())
         this.alertText = "Такой номер маршрута уже сущесвтует!"
-      }).then(() => this.clean()).then(() => this.getData())
+      })
     },
     deleteData() {
       this.$http.delete(url + "/route/" + this.id1.toString()).catch((e) => {
@@ -406,7 +406,6 @@ export default {
     addRoute() {
       if (this.validationNumberFoo()) {
         this.createData()
-        this.clean()
         this.showAlert("Добавлено!")
       } else {
         this.showAlert("Некорректный ввод!")
@@ -427,8 +426,8 @@ export default {
     },
     addBus() {
       let errAdd = false;
-      if (this.busId != null) {
-        if (this.id1 != null) {
+      if (this.busId != null && this.busId !== "") {
+        if (this.id1 != null && this.id1 !== "") {
           this.$http.get(url + "/bus/" + this.busId.toString())
               .then(response => {
                 const bus = response && response.data ? response.data : []
@@ -436,7 +435,6 @@ export default {
                 this.$http.patch(url + "/route/addBusTo/" + this.id1.toString(),
                     bus
                 ).catch((e) => {
-
                     errAdd = true;
                     this.showAlert("Такой автобус уже есть!")
                     console.log(e.toString())
@@ -456,8 +454,8 @@ export default {
 
     removeBus() {
       let errDel = false;
-      if (this.busId != null) {
-        if (this.id1 != null) {
+      if (this.busId != null && this.busId !== "") {
+        if (this.id1 != null  && this.id1 !== "") {
           this.$http.get(url + "/bus/" + this.busId.toString())
               .then(response => {
                 const bus = response && response.data ? response.data : []
@@ -482,7 +480,7 @@ export default {
     },
     addViolation() {
       if (this.violation.trim().length > 0) {
-        if (this.id1 != null) {
+        if (this.id1 != null  && this.id1 !== "") {
           this.$http.patch(url + "/route/addViolationTo/" + this.id1.toString(),
               {
                 violation: this.violation,
@@ -502,7 +500,7 @@ export default {
     },
 
     removeViolation() {
-      if (this.id1 != null) {
+      if (this.id1 != null && this.id1 !== "") {
         this.$http.patch(url + "/route/removeViolationsFrom/" + this.id1.toString()
         ).catch((e) => {
           console.log(e.toString())

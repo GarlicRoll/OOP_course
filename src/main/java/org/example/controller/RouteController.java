@@ -79,7 +79,7 @@ public class RouteController {
         // Если такой номер маршрута существует
         for (Route routeExtra: allRoutes) {
             if (routeExtra.getNumber() == route.getNumber() && routeExtra.getId() != route.getId()) {
-                code = 4091;
+                code = 409;
                 alreadySomewhere = true;
 
                 Main.logger.log(Level.WARNING, "409 (1). This number already exists. " + route);
@@ -129,7 +129,7 @@ public class RouteController {
         // Если такой номер маршрута существует
         for (Route routeExtra: allRoutes) {
             if (routeExtra.getNumber() == route.getNumber() && routeExtra.getId() != route.getId()) {
-                code = 4091;
+                code = 409;
                 alreadySomewhere = true;
                 Main.logger.log(Level.WARNING, "409 (1). This number already exists. " + route);
             }

@@ -228,9 +228,9 @@ export default {
                   start: this.start,
                   end: this.end,
                   driver: driver,
-                }).catch(() => {
-                  this.alertText = "Ошибка!"
-                }).then(() => this.getData())
+                }).then(() => this.getData()).catch(() => {
+                  this.alertText = "Этот водитель уже прикреплён к автобусу!"
+                })
               }
           ).catch(e => {
         this.alertText = "Водитель не найден!"
@@ -243,9 +243,9 @@ export default {
           number: this.number,
           start: this.start,
           end: this.end,
-        }).catch(() => {
-          this.alertText = "Ошибка!"
-        }).then(() => this.clean()).then(() => this.getData())
+        }).then(() => this.clean()).then(() => this.getData()).catch(() => {
+          this.alertText = "Такой номер автобуса уже существует!"
+        })
       }
 
     },
@@ -261,9 +261,9 @@ export default {
                     start: this.start,
                     end: this.end,
                     driver: driver,
-                  }).catch(() => {
-                    this.alertText = "Ошибка!"
-                  }).then(() => this.clean()).then(() => this.getData())
+                  }).then(() => this.clean()).then(() => this.getData()).catch(() => {
+                    this.alertText = "Этот водитель уже прикреплён к автобусу!"
+                  })
                 }
             ).catch(e => {
           this.alertText = "Водитель не найден!"
@@ -276,9 +276,9 @@ export default {
           number: this.number,
           start: this.start,
           end: this.end,
-        }).catch(() => {
-          this.alertText = "Ошибка!"
-        }).then(() => this.clean()).then(() => this.getData())
+        }).then(() => this.clean()).then(() => this.getData()).catch(() => {
+          this.alertText = "Такой номер автобуса уже существует!"
+        })
       }
 
       /*

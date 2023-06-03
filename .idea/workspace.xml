@@ -4,19 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1d545a4-aebc-4c27-85fd-64878785bee5" name="Changes" comment="Обработка ошибок">
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/controller/RouteControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/service/BusServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/service/RouteServiceTest.java" afterDir="false" />
+    <list default="true" id="e1d545a4-aebc-4c27-85fd-64878785bee5" name="Changes" comment="Тесты контроллера + пара проверок">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/BusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/BusController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/DriverController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/DriverController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/RouteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/RouteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Bus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Bus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Route.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Route.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/controller/BusControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/controller/BusControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/controller/DriverControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/controller/DriverControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/BusesView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/BusesView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/ScheduleView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/ScheduleView.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -245,7 +237,7 @@
       <workItem from="1684827967536" duration="60086000" />
       <workItem from="1685097773315" duration="2415000" />
       <workItem from="1685440689844" duration="6446000" />
-      <workItem from="1685794751028" duration="12230000" />
+      <workItem from="1685794751028" duration="15359000" />
     </task>
     <task id="LOCAL-00001" summary="Добавлены связи между таблицами рабочие + немного улучшен визуал">
       <created>1683155302311</created>
@@ -373,7 +365,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685453270851</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Тесты контроллера + пара проверок">
+      <created>1685807311236</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1685807311237</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -409,6 +408,7 @@
     <MESSAGE value="Убрана возможность поставить один и тот же автобус на разные маршруты" />
     <MESSAGE value="Добавлена обработка ошибки &quot;Графа нарушений и так пуста&quot;" />
     <MESSAGE value="Обработка ошибок" />
-    <option name="LAST_COMMIT_MESSAGE" value="Обработка ошибок" />
+    <MESSAGE value="Тесты контроллера + пара проверок" />
+    <option name="LAST_COMMIT_MESSAGE" value="Тесты контроллера + пара проверок" />
   </component>
 </project>
