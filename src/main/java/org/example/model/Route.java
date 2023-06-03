@@ -13,7 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "test.routes")
-public final class Route {
+public class Route {
     /**
      * Поле id
      */

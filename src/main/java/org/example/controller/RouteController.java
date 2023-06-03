@@ -72,11 +72,27 @@ public class RouteController {
     @PostMapping
     public ResponseEntity<Route> create(@RequestBody Route route) {
 
-        route = routeService.saveRoute(route);
+        int code = 201;
 
-        Main.logger.log(Level.INFO, "201 OK Server. Post one route. " + route.toString());
+        List<Route> allRoutes = routeService.findAllRoutes();
+        boolean alreadySomewhere = false;
+        // Если такой номер маршрута существует
+        for (Route routeExtra: allRoutes) {
+            if (routeExtra.getNumber() == route.getNumber() && routeExtra.getId() != route.getId()) {
+                code = 4091;
+                alreadySomewhere = true;
 
-        return new ResponseEntity<>(route, HttpStatus.valueOf(201));
+                Main.logger.log(Level.WARNING, "409 (1). This number already exists. " + route);
+            }
+        }
+
+        if (!alreadySomewhere) {
+            route = routeService.saveRoute(route);
+            Main.logger.log(Level.INFO, "201 OK Server. Post one route. " + route);
+        }
+
+
+        return new ResponseEntity<>(route, HttpStatus.valueOf(code));
     }
 
     /***
@@ -91,6 +107,7 @@ public class RouteController {
 
         Main.logger.log(Level.INFO, "201 OK Server. Post list of routes. ");
 
+
         return new ResponseEntity<>(routes, HttpStatus.valueOf(201));
     }
 
@@ -103,6 +120,27 @@ public class RouteController {
     @PatchMapping("{id}")
     public ResponseEntity<Route> update(@PathVariable int id, @RequestBody Route route) {
 
+        int code = 201;
+
+        route.setId(id);
+
+        List<Route> allRoutes = routeService.findAllRoutes();
+        boolean alreadySomewhere = false;
+        // Если такой номер маршрута существует
+        for (Route routeExtra: allRoutes) {
+            if (routeExtra.getNumber() == route.getNumber() && routeExtra.getId() != route.getId()) {
+                code = 4091;
+                alreadySomewhere = true;
+                Main.logger.log(Level.WARNING, "409 (1). This number already exists. " + route);
+            }
+        }
+
+        if (!alreadySomewhere) {
+            route = routeService.updateRoute(route);
+            Main.logger.log(Level.INFO, "201 OK Server. Update one route. " + route);
+        }
+
+        /*
         Route routeNew = null;
         Optional<Route> routeOptional = routeService.findRouteById(id);
         if (routeOptional.isPresent()) {
@@ -112,10 +150,11 @@ public class RouteController {
         } else {
             throw new NotFoundException();
         }
+        */
 
-        Main.logger.log(Level.INFO, "201 OK Server. Update one route. " + route.toString());
 
-        return new ResponseEntity<>(route, HttpStatus.valueOf(201));
+
+        return new ResponseEntity<>(route, HttpStatus.valueOf(code));
     }
 
     /***
@@ -255,7 +294,7 @@ public class RouteController {
     @DeleteMapping("{id}")
     public ResponseEntity<Integer> delete(@PathVariable int id) {
 
-        routeService.findRouteById(id);
+        read(id);
 
         routeService.deleteRoute(id);
 

@@ -90,7 +90,7 @@ public class BusController {
         int statusCode = 201;
         if (!alreadyExists) {
             bus = busService.saveBus(bus);
-            Main.logger.log(Level.INFO, "201 OK Server. Update one bus. " + bus);
+            Main.logger.log(Level.INFO, "201 OK Server. Post one bus. " + bus);
         } else {
             Main.logger.log(Level.INFO, "409 Server. Driver already connected to another bus. " + bus);
             statusCode = 409;
@@ -162,7 +162,7 @@ public class BusController {
     @DeleteMapping("{id}")
     public ResponseEntity<Integer> delete(@PathVariable int id) {
 
-        busService.findBusById(id);
+        read(id);
 
         busService.deleteBus(id);
 

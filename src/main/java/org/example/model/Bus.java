@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "test.buses")
-public final class Bus {
+public class Bus {
     /**
      * Поле id
      */

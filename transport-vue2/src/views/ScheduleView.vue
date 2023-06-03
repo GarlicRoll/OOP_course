@@ -375,7 +375,7 @@ export default {
         buses: null,
         violations: null,
       }).catch(() => {
-        this.alertText = "Ошибка!"
+        this.alertText = "Такой номер маршрута уже существует!"
       }).then(() => this.getData())
     },
     updateData() {
@@ -387,7 +387,7 @@ export default {
           }
       ).catch((e) => {
         console.log(e.toString())
-        this.alertText = "Ошибка!"
+        this.alertText = "Такой номер маршрута уже сущесвтует!"
       }).then(() => this.clean()).then(() => this.getData())
     },
     deleteData() {
@@ -436,9 +436,11 @@ export default {
                 this.$http.patch(url + "/route/addBusTo/" + this.id1.toString(),
                     bus
                 ).catch((e) => {
-                  errAdd = true;
-                  this.showAlert("Такой автобус уже есть!")
-                  console.log(e.toString())
+
+                    errAdd = true;
+                    this.showAlert("Такой автобус уже есть!")
+                    console.log(e.toString())
+
                 }).then(() => {this.getData(); if (!errAdd) {this.clean(); this.showAlert("Автобус добавлен!")}})
               }).catch(e => {
                 this.showAlert("Автобус не найден!")
@@ -479,18 +481,23 @@ export default {
       }
     },
     addViolation() {
-      if (this.id1 != null) {
-        this.$http.patch(url + "/route/addViolationTo/" + this.id1.toString(),
-            {
-              violation: this.violation,
-            }
-        ).catch((e) => {
-          console.log(e.toString())
-          this.alertText = "Ошибка!"
-        }).then(() => this.clean()).then(() => this.getData())
-        this.showAlert("Добавлено!")
-      } else {
-        this.showAlert("Введите номер!")
+      if (this.violation.trim().length > 0) {
+        if (this.id1 != null) {
+          this.$http.patch(url + "/route/addViolationTo/" + this.id1.toString(),
+              {
+                violation: this.violation,
+              }
+          ).catch((e) => {
+            console.log(e.toString())
+            this.alertText = "Ошибка!"
+          }).then(() => this.clean()).then(() => this.getData())
+          this.showAlert("Добавлено!")
+        } else {
+          this.showAlert("Введите номер!")
+        }
+      }
+      else {
+        this.showAlert("Введите нарушение!")
       }
     },
 

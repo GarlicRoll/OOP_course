@@ -119,7 +119,7 @@ public class DriverController {
     @DeleteMapping("{id}")
     public ResponseEntity<Integer> delete(@PathVariable int id) {
 
-        driverService.findDriverById(id);
+        read(id);
 
         driverService.deleteDriver(id);
 

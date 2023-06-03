@@ -4,11 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1d545a4-aebc-4c27-85fd-64878785bee5" name="Changes" comment="Добавлена обработка ошибки &quot;Графа нарушений и так пуста&quot;">
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/controller/BusControllerTest.java" afterDir="false" />
+    <list default="true" id="e1d545a4-aebc-4c27-85fd-64878785bee5" name="Changes" comment="Обработка ошибок">
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/controller/RouteControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/service/BusServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/service/RouteServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport-vue2/src/layouts/MainLayout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/layouts/MainLayout.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/DriversView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/DriversView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/BusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/BusController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/DriverController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/DriverController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/RouteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/RouteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Bus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Bus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Route.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Route.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/controller/BusControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/controller/BusControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/controller/DriverControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/controller/DriverControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transport-vue2/src/views/ScheduleView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/transport-vue2/src/views/ScheduleView.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +28,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -43,34 +52,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "last_opened_file_path": "D:/Programming/ParallelMultiplication",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "spring.configuration.checksum": "89daeefeb373ccbfaf54ce642222d999",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Programming/ParallelMultiplication&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;89daeefeb373ccbfaf54ce642222d999&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Programming\OOP_course_v2" />
@@ -86,7 +95,7 @@
       <recent name="org.example.controller" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BusControllerTest.saveBus_shouldCallService">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.example.Main" />
       <module name="employee-management" />
@@ -94,17 +103,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BusControllerTest.saveBus_shouldCallService" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BusServiceTest.saveBus_shouldCallRepository" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="employee-management" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.example.controller.*" />
+          <option name="PATTERN" value="org.example.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.example.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.example.controller.BusControllerTest" />
-      <option name="METHOD_NAME" value="saveBus_shouldCallService" />
+      <option name="PACKAGE_NAME" value="org.example.service" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.BusServiceTest" />
+      <option name="METHOD_NAME" value="saveBus_shouldCallRepository" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -125,7 +134,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DriverControllerTest.saveDriver" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DriverServiceTest.saveDriver_shouldCallRepository" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="employee-management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.service" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.DriverServiceTest" />
+      <option name="METHOD_NAME" value="saveDriver_shouldCallRepository" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RouteControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="employee-management" />
       <extension name="coverage">
         <pattern>
@@ -134,29 +159,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="org.example.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.example.controller.DriverControllerTest" />
-      <option name="METHOD_NAME" value="saveDriver" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DriverServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="employee-management" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.example.service" />
-      <option name="MAIN_CLASS_NAME" value="org.example.service.DriverServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="org.example.controller.RouteControllerTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DriverServiceTest.saveEvent_shouldCallRepository" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RouteServiceTest.saveRoute_shouldCallRepository" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="employee-management" />
       <extension name="coverage">
         <pattern>
@@ -165,8 +174,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="org.example.service" />
-      <option name="MAIN_CLASS_NAME" value="org.example.service.DriverServiceTest" />
-      <option name="METHOD_NAME" value="saveEvent_shouldCallRepository" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.RouteServiceTest" />
+      <option name="METHOD_NAME" value="saveRoute_shouldCallRepository" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -185,21 +194,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Main" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="employee-management" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.Main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Main" />
-      <item itemvalue="JUnit.BusControllerTest.saveBus_shouldCallService" />
+      <item itemvalue="JUnit.BusServiceTest.saveBus_shouldCallRepository" />
+      <item itemvalue="JUnit.DriverServiceTest.saveDriver_shouldCallRepository" />
+      <item itemvalue="JUnit.RouteControllerTest" />
+      <item itemvalue="JUnit.RouteServiceTest.saveRoute_shouldCallRepository" />
       <item itemvalue="JUnit.DriverControllerTest" />
-      <item itemvalue="JUnit.DriverControllerTest.saveDriver" />
-      <item itemvalue="JUnit.DriverServiceTest" />
-      <item itemvalue="JUnit.DriverServiceTest.saveEvent_shouldCallRepository" />
+      <item itemvalue="Spring Boot.Main" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.BusControllerTest.saveBus_shouldCallService" />
+        <item itemvalue="JUnit.RouteControllerTest" />
         <item itemvalue="JUnit.DriverControllerTest" />
-        <item itemvalue="JUnit.DriverServiceTest" />
-        <item itemvalue="JUnit.DriverServiceTest.saveEvent_shouldCallRepository" />
-        <item itemvalue="JUnit.DriverControllerTest.saveDriver" />
+        <item itemvalue="JUnit.BusServiceTest.saveBus_shouldCallRepository" />
+        <item itemvalue="JUnit.DriverServiceTest.saveDriver_shouldCallRepository" />
+        <item itemvalue="JUnit.RouteServiceTest.saveRoute_shouldCallRepository" />
       </list>
     </recent_temporary>
   </component>
@@ -227,7 +244,8 @@
       <workItem from="1684764791894" duration="17765000" />
       <workItem from="1684827967536" duration="60086000" />
       <workItem from="1685097773315" duration="2415000" />
-      <workItem from="1685440689844" duration="4289000" />
+      <workItem from="1685440689844" duration="6446000" />
+      <workItem from="1685794751028" duration="12230000" />
     </task>
     <task id="LOCAL-00001" summary="Добавлены связи между таблицами рабочие + немного улучшен визуал">
       <created>1683155302311</created>
@@ -348,7 +366,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684972301257</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Обработка ошибок">
+      <created>1685453270851</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1685453270851</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -383,6 +408,7 @@
     <MESSAGE value="Связи переделаны на агрегацию (например при удалении автобуса маршрут и водитель не удаляется)" />
     <MESSAGE value="Убрана возможность поставить один и тот же автобус на разные маршруты" />
     <MESSAGE value="Добавлена обработка ошибки &quot;Графа нарушений и так пуста&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлена обработка ошибки &quot;Графа нарушений и так пуста&quot;" />
+    <MESSAGE value="Обработка ошибок" />
+    <option name="LAST_COMMIT_MESSAGE" value="Обработка ошибок" />
   </component>
 </project>
